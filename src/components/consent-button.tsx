@@ -25,11 +25,10 @@ export function ConsentButton() {
         <Button
           variant="outline"
           className={cn(
-            "w-full border-2 transition-all",
+            "w-full border-2 transition-all bg-transparent hover:bg-white/10",
             isChecked
               ? "border-green-500 text-green-400"
-              : "border-primary text-primary",
-            "bg-transparent hover:bg-white/10"
+              : "border-primary text-primary"
           )}
         >
           18+ Consent
