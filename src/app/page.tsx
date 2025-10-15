@@ -3,14 +3,15 @@ import { Header } from "@/components/header";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col relative">
       <Image
-        src="/background_image.jpg"
+        src="https://picsum.photos/seed/1/1920/1080"
         alt="PleasureX background"
         fill
         className="object-cover -z-10"
         quality={80}
         priority
+        data-ai-hint="luxury abstract"
       />
       {/* Overlay for text readability */}
       <div className="absolute inset-0 bg-black/40 -z-10" />
