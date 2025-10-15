@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, Mars, Venus, Users, X } from "lucide-react";
+import { Menu, Mars, Venus, Users, X, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Collapsible,
@@ -258,7 +258,7 @@ export default function Home() {
                 aria-expanded={popoverOpen}
                 className="w-full justify-center bg-transparent hover:bg-white/10 border-white text-white"
               >
-                Choose up to 5
+                {selectedTopics.length > 0 ? "Selected" : "Choose up to 5"}
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-[220px] p-0">
@@ -277,11 +277,16 @@ export default function Home() {
                         <CommandItem
                           key={topic}
                           onSelect={() => handleTopicSelect(topic)}
-                          className={cn(
-                            "cursor-pointer",
-                            selectedTopics.includes(topic) && "bg-accent text-accent-foreground"
-                          )}
+                          className="cursor-pointer flex items-center gap-2"
                         >
+                          <div
+                            className={cn(
+                              "h-2 w-2 rounded-full",
+                              selectedTopics.includes(topic)
+                                ? "bg-primary"
+                                : "bg-transparent"
+                            )}
+                          />
                           {topic}
                         </CommandItem>
                       ))}
