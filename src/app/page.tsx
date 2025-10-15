@@ -61,7 +61,7 @@ export default function Home() {
       </div>
 
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center p-4 text-center text-white pb-32">
-        <div className="w-56 mt-[-80px]">
+        <div className="w-56 mt-[-90px]">
           <Collapsible>
             <CollapsibleTrigger asChild>
               <Button
