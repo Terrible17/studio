@@ -32,7 +32,12 @@ export default function Home() {
         <ThemeToggle />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" aria-label="Open menu" className="hover:bg-transparent">
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label="Open menu"
+              className="hover:bg-transparent"
+            >
               <Menu className="h-6 w-6" />
             </Button>
           </DropdownMenuTrigger>

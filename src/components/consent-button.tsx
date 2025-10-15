@@ -25,14 +25,14 @@ export function ConsentButton() {
         <Button
           variant="outline"
           className={cn(
-            "w-full transition-all",
+            "w-full border-2 transition-all",
             isChecked
-              ? "border-green-500 ring-2 ring-green-500/50"
-              : "border-destructive",
-            "bg-transparent hover:bg-white/10 text-white"
+              ? "border-green-500 text-green-400"
+              : "border-primary text-primary",
+            "bg-transparent hover:bg-white/10"
           )}
         >
-          18+ Consent
+          18+ Consent {isChecked && "✓"}
         </Button>
       </CollapsibleTrigger>
       <CollapsibleContent className="space-y-4 rounded-md border border-border bg-background/80 p-4 text-sm backdrop-blur-sm">
@@ -49,12 +49,12 @@ export function ConsentButton() {
             onCheckedChange={(checked) => setIsChecked(checked as boolean)}
             className="border-primary data-[state=checked]:bg-green-500 data-[state=checked]:text-white"
           />
-          <label
+          <Label
             htmlFor="consent"
             className="cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
             I confirm I am 18+ and agree to the terms.
-          </label>
+          </Label>
         </div>
       </CollapsibleContent>
     </Collapsible>
