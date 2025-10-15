@@ -51,12 +51,10 @@ export default function Home() {
       </div>
 
       {/* Wrap content in a relative container to ensure it appears above the overlay */}
-      <div className="relative z-10 flex flex-1 flex-col">
-        <main className="flex-1 flex flex-col items-center justify-center text-center text-white p-4">
-          <div className="space-y-4 animate-in fade-in-0 slide-in-from-bottom-8 duration-1000 ease-out">
-            <ConsentButton />
-          </div>
-        </main>
+      <div className="relative z-10 flex flex-1 flex-col items-center justify-start pt-32 text-center text-white p-4">
+        <div className="space-y-4 animate-in fade-in-0 slide-in-from-top-8 duration-1000 ease-out">
+          <ConsentButton />
+        </div>
       </div>
     </div>
   );
