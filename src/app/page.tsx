@@ -328,8 +328,10 @@ export default function Home() {
             <Button
               variant="outline"
               size="icon"
-              className={`rounded-full h-16 w-16 bg-transparent hover:bg-white/10 border-2 transition-all ${
-                videoClicked ? 'border-green-500 text-green-500' : 'border-red-500 text-red-500'
+              className={`rounded-full h-16 w-16 border-2 transition-all ${
+                videoClicked
+                  ? 'bg-green-500 border-green-500 text-white'
+                  : 'bg-transparent hover:bg-white/10 border-red-500 text-red-500'
               }`}
               onClick={handleVideoClick}
             >
@@ -342,5 +344,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
