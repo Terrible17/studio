@@ -117,8 +117,8 @@ export default function Home() {
         color: genderConfig[selectedGender].color,
       }
     : {
-        borderColor: "#FFD700",
-        color: "#FFD700",
+        borderColor: "#FFFFFF",
+        color: "#FFFFFF",
       };
 
   return (
