@@ -1,23 +1,17 @@
 import Image from "next/image";
 import { Header } from "@/components/header";
-import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 export default function Home() {
-  const backgroundImage = PlaceHolderImages.find(img => img.id === 'background');
-
   return (
     <div className="flex min-h-screen flex-col">
-      {backgroundImage && (
-        <Image
-          src={backgroundImage.imageUrl}
-          alt={backgroundImage.description}
-          fill
-          className="object-cover -z-10"
-          quality={80}
-          priority
-          data-ai-hint={backgroundImage.imageHint}
-        />
-      )}
+      <Image
+        src="/background_image.jpg"
+        alt="PleasureX background"
+        fill
+        className="object-cover -z-10"
+        quality={80}
+        priority
+      />
       {/* Overlay for text readability */}
       <div className="absolute inset-0 bg-black/40 -z-10" />
       
