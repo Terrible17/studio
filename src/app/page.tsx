@@ -172,7 +172,7 @@ export default function Home() {
       </div>
 
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center p-4 text-center text-white">
-        <div className="w-56 mt-28">
+        <div className="w-56 mt-32">
           <h2 className="text-lg font-medium text-white/90 mb-3">
             Confirm consent to proceed
           </h2>
