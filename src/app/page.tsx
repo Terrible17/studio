@@ -20,27 +20,32 @@ export default function Home() {
 
       {/* Wrap content in a relative container to ensure it appears above the overlay */}
       <div className="relative z-10 flex flex-1 flex-col">
-        <header className="fixed top-0 z-50 w-full p-4">
-          <nav className="container mx-auto flex items-center justify-center">
-              <div className="flex items-center space-x-2 rounded-full bg-background/50 p-1 backdrop-blur-sm">
-                  <Button variant="ghost" size="icon" className="text-accent hover:text-accent/90" aria-label="Premium">
-                  <PremiumIcon className="h-6 w-6" />
+        <header className="fixed top-0 z-50 w-full border-b border-white/20 bg-black/20 backdrop-blur-sm">
+          <nav className="container mx-auto flex items-center justify-end p-4">
+            <div className="flex items-center space-x-2">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-accent hover:text-accent/90"
+                aria-label="Premium"
+              >
+                <PremiumIcon className="h-6 w-6" />
+              </Button>
+              <ThemeToggle />
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" aria-label="Open menu">
+                    <Menu className="h-6 w-6" />
                   </Button>
-                  <ThemeToggle />
-                  <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon" aria-label="Open menu">
-                      <Menu className="h-6 w-6" />
-                      </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-48">
-                      <DropdownMenuItem>Home</DropdownMenuItem>
-                      <DropdownMenuItem>Features</DropdownMenuItem>
-                      <DropdownMenuItem>Pricing</DropdownMenuItem>
-                      <DropdownMenuItem>About</DropdownMenuItem>
-                  </DropdownMenuContent>
-                  </DropdownMenu>
-              </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuItem>Home</DropdownMenuItem>
+                  <DropdownMenuItem>Features</DropdownMenuItem>
+                  <DropdownMenuItem>Pricing</DropdownMenuItem>
+                  <DropdownMenuItem>About</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           </nav>
         </header>
 
