@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { PremiumIcon } from "@/components/icons/premium-icon";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { ConsentButton } from "@/components/consent-button";
 
 export default function Home() {
   return (
@@ -48,7 +49,7 @@ export default function Home() {
       <div className="relative z-10 flex flex-1 flex-col">
         <main className="flex-1 flex flex-col items-center justify-center text-center text-white p-4">
           <div className="space-y-4 animate-in fade-in-0 slide-in-from-bottom-8 duration-1000 ease-out">
-            
+            <ConsentButton />
           </div>
         </main>
       </div>
