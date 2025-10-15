@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="flex min-h-screen flex-col relative">
       <Image
-        src="https://picsum.photos/seed/1/1920/1080"
+        src="/background_image.jpg"
         alt="PleasureX background"
         fill
         className="object-cover -z-10"
