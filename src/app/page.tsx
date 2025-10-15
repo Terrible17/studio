@@ -20,13 +20,13 @@ export default function Home() {
 
       {/* Wrap content in a relative container to ensure it appears above the overlay */}
       <div className="relative z-10 flex flex-1 flex-col">
-        <header className="fixed top-0 z-50 w-full border-b border-white/20 bg-black/20 backdrop-blur-sm">
+        <header className="fixed top-0 z-50 w-full bg-black/20 backdrop-blur-sm">
           <nav className="container mx-auto flex items-center justify-end p-2">
             <div className="flex items-center space-x-1">
               <Button
                 variant="ghost"
                 size="icon"
-                className="text-accent hover:text-accent/90"
+                className="text-accent hover:bg-transparent hover:text-accent/90"
                 aria-label="Premium"
               >
                 <PremiumIcon className="h-6 w-6" />
@@ -34,7 +34,7 @@ export default function Home() {
               <ThemeToggle />
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" aria-label="Open menu">
+                  <Button variant="ghost" size="icon" aria-label="Open menu" className="hover:bg-transparent">
                     <Menu className="h-6 w-6" />
                   </Button>
                 </DropdownMenuTrigger>
