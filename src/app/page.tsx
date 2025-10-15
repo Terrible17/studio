@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, Mars, Venus, Users } from "lucide-react";
+import { Menu, Mars, Venus, Users, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Collapsible,
@@ -17,9 +17,24 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import { Badge } from "@/components/ui/badge";
 import { PremiumIcon } from "@/components/icons/premium-icon";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { cn } from "@/lib/utils";
 
 type Gender = "Male" | "Female" | "Couple";
 
@@ -38,10 +53,30 @@ const genderConfig = {
   },
 };
 
+const topics = [
+  "Roleplay",
+  "Cosplay",
+  "BDSM",
+  "Threesome",
+  "Swinging",
+  "Exhibitionism",
+  "Voyeurism",
+  "Dominance & Submission",
+  "Tantric",
+  "Fetish",
+  "Group Fun",
+  "Exploring Fantasies",
+  "Intimate Massage",
+  "Edging",
+  "Spanking",
+];
+
 export default function Home() {
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [dateTime, setDateTime] = useState('');
   const [selectedGender, setSelectedGender] = useState<Gender | null>(null);
+  const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
+  const [popoverOpen, setPopoverOpen] = useState(false);
 
   useEffect(() => {
     const updateDateTime = () => {
@@ -60,6 +95,21 @@ export default function Home() {
 
     return () => clearInterval(intervalId);
   }, []);
+
+  const handleTopicSelect = (topic: string) => {
+    if (selectedTopics.includes(topic)) {
+      setSelectedTopics(selectedTopics.filter((t) => t !== topic));
+    } else if (selectedTopics.length < 5) {
+      setSelectedTopics([...selectedTopics, topic]);
+    }
+  };
+
+  const handleCustomTopic = (inputValue: string) => {
+    const newTopic = inputValue.trim();
+    if (newTopic && !topics.includes(newTopic) && !selectedTopics.includes(newTopic) && selectedTopics.length < 5) {
+        setSelectedTopics([...selectedTopics, newTopic]);
+    }
+  };
 
   const buttonStyle = selectedGender
     ? {
@@ -196,9 +246,70 @@ export default function Home() {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-          <p className="text-sm text-white/80 mt-6">
+          <p className="text-sm text-white/80 mt-6 mb-2">
             Pleasurable Needs (Optional)
           </p>
+
+          <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                role="combobox"
+                aria-expanded={popoverOpen}
+                className="w-full justify-between bg-transparent hover:bg-white/10 border-primary text-primary"
+              >
+                Choose up to 5
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[220px] p-0">
+              <Command>
+                <CommandInput placeholder="Search or add topic..." onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                        handleCustomTopic(e.currentTarget.value);
+                        e.currentTarget.value = '';
+                    }
+                }}/>
+                <CommandList>
+                  <CommandEmpty>No results found.</CommandEmpty>
+                  <CommandGroup>
+                    <ScrollArea className="h-48">
+                      {topics.map((topic) => (
+                        <CommandItem
+                          key={topic}
+                          onSelect={() => handleTopicSelect(topic)}
+                          className={cn(
+                            "cursor-pointer",
+                            selectedTopics.includes(topic) && "bg-accent text-accent-foreground"
+                          )}
+                        >
+                          {topic}
+                        </CommandItem>
+                      ))}
+                    </ScrollArea>
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
+
+          <div className="mt-2 flex flex-wrap gap-1 justify-center">
+            {selectedTopics.map((topic) => (
+              <Badge
+                key={topic}
+                variant="secondary"
+                className="bg-primary/20 border-primary/50 text-white"
+              >
+                {topic}
+                <button
+                  onClick={() => handleTopicSelect(topic)}
+                  className="ml-1 rounded-full outline-none ring-offset-background focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                >
+                  <X className="h-3 w-3 text-muted-foreground hover:text-foreground" />
+                </button>
+              </Badge>
+            ))}
+          </div>
+
         </div>
       </div>
     </div>
