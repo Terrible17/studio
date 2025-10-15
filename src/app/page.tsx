@@ -196,6 +196,9 @@ export default function Home() {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
+          <p className="text-sm text-white/80 mt-6">
+            Pleasurable Needs (Optional)
+          </p>
         </div>
       </div>
     </div>
