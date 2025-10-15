@@ -23,6 +23,21 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 type Gender = "Male" | "Female" | "Couple";
 
+const genderConfig = {
+  Male: {
+    icon: <Mars className="h-4 w-4" />,
+    color: "#3b82f6", // blue-500
+  },
+  Female: {
+    icon: <Venus className="h-4 w-4" />,
+    color: "#ec4899", // pink-500
+  },
+  Couple: {
+    icon: <Users className="h-4 w-4" />,
+    color: "#ef4444", // red-500
+  },
+};
+
 export default function Home() {
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [dateTime, setDateTime] = useState('');
@@ -46,11 +61,15 @@ export default function Home() {
     return () => clearInterval(intervalId);
   }, []);
 
-  const genderIcons = {
-    Male: <Mars className="h-4 w-4" />,
-    Female: <Venus className="h-4 w-4" />,
-    Couple: <Users className="h-4 w-4" />,
-  };
+  const buttonStyle = selectedGender
+    ? {
+        borderColor: genderConfig[selectedGender].color,
+        color: genderConfig[selectedGender].color,
+      }
+    : {
+        borderColor: "#FFD700",
+        color: "#FFD700",
+      };
 
   return (
     <div
@@ -146,10 +165,14 @@ export default function Home() {
           <div className="mt-4">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="w-full bg-transparent hover:bg-white/10 border-primary text-primary">
+                <Button
+                  variant="outline"
+                  className="w-full bg-transparent hover:bg-white/10"
+                  style={buttonStyle}
+                >
                   {selectedGender ? (
                     <>
-                      {genderIcons[selectedGender]}
+                      {genderConfig[selectedGender].icon}
                       <span className="ml-2">{selectedGender}</span>
                     </>
                   ) : (
@@ -158,16 +181,16 @@ export default function Home() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56">
-                <DropdownMenuItem onSelect={() => setSelectedGender("Male")}>
-                  <Mars className="mr-2 h-4 w-4" />
+                <DropdownMenuItem onSelect={() => setSelectedGender("Male")} style={{ color: genderConfig.Male.color }}>
+                  {genderConfig.Male.icon}
                   <span>Male</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem onSelect={() => setSelectedGender("Female")}>
-                  <Venus className="mr-2 h-4 w-4" />
+                <DropdownMenuItem onSelect={() => setSelectedGender("Female")} style={{ color: genderConfig.Female.color }}>
+                  {genderConfig.Female.icon}
                   <span>Female</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem onSelect={() => setSelectedGender("Couple")}>
-                  <Users className="mr-2 h-4 w-4" />
+                <DropdownMenuItem onSelect={() => setSelectedGender("Couple")} style={{ color: genderConfig.Couple.color }}>
+                  {genderConfig.Couple.icon}
                   <span>Couple</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
