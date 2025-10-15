@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu } from "lucide-react";
+import { Menu, Mars, Venus, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Collapsible,
@@ -21,9 +21,12 @@ import { PremiumIcon } from "@/components/icons/premium-icon";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
+type Gender = "Male" | "Female" | "Couple";
+
 export default function Home() {
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [dateTime, setDateTime] = useState('');
+  const [selectedGender, setSelectedGender] = useState<Gender | null>(null);
 
   useEffect(() => {
     const updateDateTime = () => {
@@ -42,6 +45,12 @@ export default function Home() {
 
     return () => clearInterval(intervalId);
   }, []);
+
+  const genderIcons = {
+    Male: <Mars className="h-4 w-4" />,
+    Female: <Venus className="h-4 w-4" />,
+    Couple: <Users className="h-4 w-4" />,
+  };
 
   return (
     <div
@@ -134,6 +143,36 @@ export default function Home() {
           <p className="text-xs text-white/70 mt-4">
             {dateTime}
           </p>
+          <div className="mt-4">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="w-full bg-transparent hover:bg-white/10 border-primary text-primary">
+                  {selectedGender ? (
+                    <>
+                      {genderIcons[selectedGender]}
+                      <span className="ml-2">{selectedGender}</span>
+                    </>
+                  ) : (
+                    "Gender"
+                  )}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuItem onSelect={() => setSelectedGender("Male")}>
+                  <Mars className="mr-2 h-4 w-4" />
+                  <span>Male</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => setSelectedGender("Female")}>
+                  <Venus className="mr-2 h-4 w-4" />
+                  <span>Female</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => setSelectedGender("Couple")}>
+                  <Users className="mr-2 h-4 w-4" />
+                  <span>Couple</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
       </div>
     </div>
