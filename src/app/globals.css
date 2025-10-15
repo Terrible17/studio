@@ -76,3 +76,12 @@
     transition-duration: 300ms;
   }
 }
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.33);
+  }
+  80%, 100% {
+    opacity: 0;
+  }
+}

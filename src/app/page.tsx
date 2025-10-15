@@ -36,6 +36,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { useRouter } from 'next/navigation';
+import { LiveVideoButton } from "@/components/live-video-button";
 
 type Gender = "Male" | "Female" | "Couple";
 
@@ -117,7 +118,10 @@ export default function Home() {
 
   const handleVideoClick = () => {
     setVideoClicked(true);
-    router.push('/video');
+    // Wait for the color change to be visible before redirecting
+    setTimeout(() => {
+      router.push('/video');
+    }, 300);
   };
 
   const buttonStyle = selectedGender
@@ -324,19 +328,11 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="mt-8">
-            <Button
-              variant="outline"
-              size="icon"
-              className={`rounded-full h-16 w-16 border-2 transition-all ${
-                videoClicked
-                  ? 'bg-green-500 border-green-500 text-white'
-                  : 'bg-transparent hover:bg-white/10 border-red-500 text-red-500'
-              }`}
+          <div className="mt-8 flex justify-center">
+            <LiveVideoButton
+              isClicked={videoClicked}
               onClick={handleVideoClick}
-            >
-              <Video className="h-8 w-8" />
-            </Button>
+            />
           </div>
 
         </div>
