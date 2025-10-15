@@ -21,9 +21,6 @@ export default function Home() {
         <div 
           className="space-y-4 animate-in fade-in-0 slide-in-from-bottom-8 duration-1000 ease-out"
         >
-          <h1 className="font-headline text-5xl font-bold tracking-tight drop-shadow-lg sm:text-7xl md:text-8xl">
-            PleasureX
-          </h1>
           <p className="max-w-2xl font-body text-lg text-white/90 drop-shadow-md md:text-xl">
             Experience elegance and luxury like never before.
           </p>
