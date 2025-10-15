@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { PremiumIcon } from "@/components/icons/premium-icon";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { ConsentButton } from "@/components/consent-button";
 
 export default function Home() {
   return (
@@ -51,10 +50,8 @@ export default function Home() {
       </div>
 
       {/* Wrap content in a relative container to ensure it appears above the overlay */}
-      <div className="relative z-10 flex flex-1 flex-col items-center justify-end text-center text-white p-4 pb-48">
-        <div className="w-full max-w-xs animate-in fade-in-0 slide-in-from-top-8 duration-1000 ease-out">
-          <ConsentButton />
-        </div>
+      <div className="relative z-10 flex flex-1 flex-col items-center justify-end text-center text-white p-4 pb-20">
+        
       </div>
     </div>
   );
