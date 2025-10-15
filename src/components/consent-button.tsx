@@ -32,7 +32,7 @@ export function ConsentButton() {
             "bg-transparent hover:bg-white/10"
           )}
         >
-          18+ Consent {isChecked && "✓"}
+          18+ Consent
         </Button>
       </CollapsibleTrigger>
       <CollapsibleContent className="space-y-4 rounded-md border border-border bg-background/80 p-4 text-sm backdrop-blur-sm">
