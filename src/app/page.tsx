@@ -37,6 +37,16 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { useRouter } from 'next/navigation';
 import { LiveVideoButton } from "@/components/live-video-button";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+  AlertDialogFooter,
+  AlertDialogAction,
+} from "@/components/ui/alert-dialog";
 
 type Gender = "Male" | "Female" | "Couple";
 
@@ -346,7 +356,37 @@ export default function Home() {
             <div className="flex flex-wrap justify-center space-x-6 text-sm text-white/80">
               <a href="#" className="hover:text-white">Privacy Policy</a>
               <a href="#" className="hover:text-white">Terms of Service</a>
-              <a href="#" className="hover:text-white">Contact</a>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <button className="hover:text-white">Contact</button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Contact Us</AlertDialogTitle>
+                    <AlertDialogDescription className="space-y-4 pt-2 text-left">
+                      <p>
+                        If you have any questions, concerns, or feedback about our website, services, or policies, please contact us using the information below. We aim to respond to all messages within 24–48 hours.
+                      </p>
+                      <p>
+                        <strong>Email:</strong> support@pleasurex.com<br/>
+                        <strong>Support Hours:</strong> Monday – Friday, 9:00 AM to 6:00 PM CAT
+                      </p>
+                      <p>
+                        For security and privacy reasons, please do not send personal or payment information through email.
+                      </p>
+                      <p>
+                        If you’re reporting a content or user issue, include as much detail as possible (such as date, time, and username) so we can assist you quickly.
+                      </p>
+                      <p>
+                        Thank you for reaching out — your feedback helps us keep PleasureX safe, respectful, and enjoyable for everyone.
+                      </p>
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogAction>Close</AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
               <a href="#" className="hover:text-white">About Us</a>
             </div>
         </div>
@@ -354,3 +394,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
