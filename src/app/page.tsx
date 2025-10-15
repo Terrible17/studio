@@ -52,7 +52,15 @@ export default function Home() {
 
       {/* Wrap content in a relative container to ensure it appears above the overlay */}
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center text-center text-white p-4">
-        <div className="space-y-4 animate-in fade-in-0 slide-in-from-top-8 duration-1000 ease-out">
+        <div className="space-y-6 animate-in fade-in-0 slide-in-from-top-8 duration-1000 ease-out">
+          <div className="space-y-2">
+            <h1 className="text-4xl font-headline font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
+              Find Your Pleasure
+            </h1>
+            <p className="max-w-md mx-auto text-lg text-white/80">
+              Unlock exclusive content and connect with a community that shares your desires.
+            </p>
+          </div>
           <ConsentButton />
         </div>
       </div>
