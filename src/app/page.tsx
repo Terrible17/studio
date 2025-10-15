@@ -355,7 +355,216 @@ export default function Home() {
             </div>
             <div className="flex flex-wrap justify-center space-x-6 text-sm text-white/80">
               <a href="#" className="hover:text-white">Privacy Policy</a>
-              <a href="#" className="hover:text-white">Terms of Service</a>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <button className="hover:text-white">Terms of Service</button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Terms of Service</AlertDialogTitle>
+                    <AlertDialogDescription asChild>
+                      <ScrollArea className="h-96 w-full pr-6 text-left">
+                        <div className="space-y-4 text-sm text-muted-foreground">
+                          <p>
+                            <strong>Effective Date:</strong> 16 October 2025
+                          </p>
+                          <p>
+                            Welcome to PleasureX (“the Site”). By accessing or using our
+                            services, you agree to be bound by these Terms of Service
+                            (“Terms”). If you do not agree, you must not use the Site.
+                          </p>
+                          <div className="space-y-2">
+                            <h3 className="font-semibold text-foreground">1. Eligibility</h3>
+                            <ul className="list-disc pl-5 space-y-1">
+                              <li>
+                                You must be at least 18 years old or the legal age in
+                                your jurisdiction to use this Site.
+                              </li>
+                              <li>
+                                By using the Site, you affirm that you meet this age
+                                requirement.
+                              </li>
+                            </ul>
+                          </div>
+                          <div className="space-y-2">
+                            <h3 className="font-semibold text-foreground">
+                              2. Account Registration
+                            </h3>
+                            <ul className="list-disc pl-5 space-y-1">
+                              <li>
+                                You may need to register an account to use certain
+                                features.
+                              </li>
+                              <li>
+                                You agree to provide accurate, complete, and current
+                                information during registration.
+                              </li>
+                              <li>
+                                You are responsible for maintaining the
+                                confidentiality of your account credentials and for
+                                all activities under your account.
+                              </li>
+                            </ul>
+                          </div>
+                          <div className="space-y-2">
+                            <h3 className="font-semibold text-foreground">3. User Conduct</h3>
+                            <p>You agree not to:</p>
+                            <ul className="list-disc pl-5 space-y-1">
+                              <li>
+                                Use the Site for any illegal purpose or in violation
+                                of applicable laws.
+                              </li>
+                              <li>Harass, threaten, or defame other users.</li>
+                              <li>
+                                Share content involving minors, non-consenting
+                                adults, or any illegal material.
+                              </li>
+                              <li>
+                                Attempt to exploit, harm, or gain unauthorized access
+                                to the Site’s infrastructure, accounts, or data.
+                              </li>
+                            </ul>
+                          </div>
+                          <div className="space-y-2">
+                            <h3 className="font-semibold text-foreground">4. Adult Content</h3>
+                            <ul className="list-disc pl-5 space-y-1">
+                              <li>
+                                The Site contains explicit adult content intended for
+                                adults only.
+                              </li>
+                              <li>
+                                You acknowledge that you may be exposed to content
+                                that is sexual, offensive, or disturbing.
+                              </li>
+                            </ul>
+                          </div>
+                          <div className="space-y-2">
+                            <h3 className="font-semibold text-foreground">
+                              5. Payment and Subscriptions
+                            </h3>
+                            <ul className="list-disc pl-5 space-y-1">
+                              <li>
+                                Certain features may require payment or subscription.
+                              </li>
+                              <li>
+                                All payments are non-refundable unless otherwise
+                                stated.
+                              </li>
+                              <li>
+                                You authorize the Site to charge your chosen payment
+                                method for any applicable fees.
+                              </li>
+                            </ul>
+                          </div>
+                          <div className="space-y-2">
+                            <h3 className="font-semibold text-foreground">6. Termination</h3>
+                            <ul className="list-disc pl-5 space-y-1">
+                              <li>
+                                We reserve the right to suspend or terminate your
+                                account at any time for violation of these Terms.
+                              </li>
+                              <li>
+                                Termination does not limit our right to pursue legal
+                                action or seek damages for violations.
+                              </li>
+                            </ul>
+                          </div>
+                          <div className="space-y-2">
+                            <h3 className="font-semibold text-foreground">7. Content Ownership</h3>
+                            <ul className="list-disc pl-5 space-y-1">
+                              <li>
+                                You retain ownership of content you post, but you
+                                grant the Site a license to use, display, and
+                                distribute your content as necessary to operate the
+                                Site.
+                              </li>
+                              <li>
+                                You are solely responsible for the content you share.
+                              </li>
+                            </ul>
+                          </div>
+                          <div className="space-y-2">
+                            <h3 className="font-semibold text-foreground">8. Privacy</h3>
+                            <ul className="list-disc pl-5 space-y-1">
+                              <li>
+                                Our Privacy Policy explains how we collect, use, and
+                                protect your information.
+                              </li>
+                              <li>
+                                By using the Site, you consent to the collection and
+                                use of your data as described in the Privacy Policy.
+                              </li>
+                            </ul>
+                          </div>
+                          <div className="space-y-2">
+                            <h3 className="font-semibold text-foreground">9. Disclaimers</h3>
+                            <ul className="list-disc pl-5 space-y-1">
+                              <li>
+                                The Site is provided “as is” and without warranties
+                                of any kind, express or implied.
+                              </li>
+                              <li>
+                                We do not guarantee uninterrupted access, accuracy of
+                                content, or security of the Site.
+                              </li>
+                            </ul>
+                          </div>
+                          <div className="space-y-2">
+                            <h3 className="font-semibold text-foreground">
+                              10. Limitation of Liability
+                            </h3>
+                            <ul className="list-disc pl-5 space-y-1">
+                              <li>
+                                To the fullest extent permitted by law, the Site and
+                                its owners are not liable for any direct, indirect,
+                                incidental, or consequential damages arising from your
+                                use of the Site.
+                              </li>
+                              <li>You use the Site at your own risk.</li>
+                            </ul>
+                          </div>
+                          <div className="space-y-2">
+                            <h3 className="font-semibold text-foreground">11. Indemnification</h3>
+                            <p>
+                              You agree to indemnify and hold harmless the Site, its
+                              affiliates, and its staff from any claims, damages, or
+                              expenses arising from your use of the Site or violation
+                              of these Terms.
+                            </p>
+                          </div>
+                          <div className="space-y-2">
+                            <h3 className="font-semibold text-foreground">12. Modifications</h3>
+                            <ul className="list-disc pl-5 space-y-1">
+                              <li>We may modify these Terms at any time.</li>
+                              <li>
+                                Continued use of the Site constitutes acceptance of
+                                the updated Terms.
+                              </li>
+                            </ul>
+                          </div>
+                          <div className="space-y-2">
+                            <h3 className="font-semibold text-foreground">13. Governing Law</h3>
+                            <ul className="list-disc pl-5 space-y-1">
+                              <li>
+                                These Terms are governed by the laws of [Your
+                                Jurisdiction].
+                              </li>
+                              <li>
+                                Any disputes will be resolved in the courts of [Your
+                                Jurisdiction].
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </ScrollArea>
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogAction>Close</AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <button className="hover:text-white">Contact</button>
