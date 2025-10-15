@@ -341,7 +341,7 @@ export default function Home() {
         <div className="container mx-auto text-center">
             <div className="mb-4">
               <p className="text-sm text-white/70">© {new Date().getFullYear()} PleasureX. All rights reserved.</p>
-              <p className="text-sm text-white/70 mt-2">PleasureX is a private 1v1 video chat site, please use responsibly.</p>
+              <p className="text-sm text-white/70 mt-2">PleasureX is a private 1v1 video chat site, please use responsibly. 18+</p>
             </div>
             <div className="flex flex-wrap justify-center space-x-6 text-sm text-white/80">
               <a href="#" className="hover:text-white">Privacy Policy</a>
