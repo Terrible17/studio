@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, Mars, Venus, Users, X, CheckCircle2 } from "lucide-react";
+import { Menu, Mars, Venus, Users, X, Video } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Collapsible,
@@ -35,6 +35,7 @@ import { PremiumIcon } from "@/components/icons/premium-icon";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
+import { useRouter } from 'next/navigation';
 
 type Gender = "Male" | "Female" | "Couple";
 
@@ -77,6 +78,9 @@ export default function Home() {
   const [selectedGender, setSelectedGender] = useState<Gender | null>(null);
   const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
   const [popoverOpen, setPopoverOpen] = useState(false);
+  const [videoClicked, setVideoClicked] = useState(false);
+  const router = useRouter();
+
 
   useEffect(() => {
     const updateDateTime = () => {
@@ -109,6 +113,11 @@ export default function Home() {
     if (newTopic && !topics.includes(newTopic) && !selectedTopics.includes(newTopic) && selectedTopics.length < 5) {
         setSelectedTopics([...selectedTopics, newTopic]);
     }
+  };
+
+  const handleVideoClick = () => {
+    setVideoClicked(true);
+    router.push('/video');
   };
 
   const buttonStyle = selectedGender
@@ -315,8 +324,23 @@ export default function Home() {
             ))}
           </div>
 
+          <div className="mt-8">
+            <Button
+              variant="outline"
+              size="icon"
+              className={`rounded-full h-16 w-16 bg-transparent hover:bg-white/10 border-2 transition-all ${
+                videoClicked ? 'border-green-500 text-green-500' : 'border-red-500 text-red-500'
+              }`}
+              onClick={handleVideoClick}
+            >
+              <Video className="h-8 w-8" />
+            </Button>
+          </div>
+
         </div>
       </div>
     </div>
   );
 }
+
+    
