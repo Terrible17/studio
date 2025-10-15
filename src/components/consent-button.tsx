@@ -28,8 +28,9 @@ export function ConsentButton() {
             "w-full border-2 transition-all bg-transparent hover:bg-white/10",
             isChecked
               ? "border-green-500 text-green-400"
-              : "border-primary text-primary"
+              : "border-primary"
           )}
+          style={{ color: isChecked ? 'hsl(var(--green-400))' : 'hsl(var(--primary))' }}
         >
           18+ Consent
         </Button>
