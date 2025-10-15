@@ -62,7 +62,7 @@ export default function Home() {
       </div>
 
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center p-4 text-center text-white pb-32">
-        <div className="w-full max-w-xs">
+        <div className="w-72">
           <Collapsible>
             <CollapsibleTrigger asChild>
               <Button
@@ -88,6 +88,7 @@ export default function Home() {
                   explicit material. I am entering of my own free will and give
                   my full consent to participate in adult interactions,
                   conversations, or live video chats. I understand that all
+
                   participants must be adults and that any form of
                   non-consensual, illegal, or exploitative behavior is strictly
                   prohibited. By continuing, I agree and consent to the above.
