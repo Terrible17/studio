@@ -21,8 +21,8 @@ export default function Home() {
       {/* Wrap content in a relative container to ensure it appears above the overlay */}
       <div className="relative z-10 flex flex-1 flex-col">
         <header className="fixed top-0 z-50 w-full border-b border-white/20 bg-black/20 backdrop-blur-sm">
-          <nav className="container mx-auto flex items-center justify-end p-4">
-            <div className="flex items-center space-x-2">
+          <nav className="container mx-auto flex items-center justify-end p-2">
+            <div className="flex items-center space-x-1">
               <Button
                 variant="ghost"
                 size="icon"
