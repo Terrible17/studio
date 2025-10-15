@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -23,6 +23,25 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function Home() {
   const [isConfirmed, setIsConfirmed] = useState(false);
+  const [dateTime, setDateTime] = useState('');
+
+  useEffect(() => {
+    const updateDateTime = () => {
+      const now = new Date();
+      const dateOptions: Intl.DateTimeFormatOptions = { day: '2-digit', month: 'long', year: 'numeric' };
+      const timeOptions: Intl.DateTimeFormatOptions = { hour: '2-digit', minute: '2-digit', hour12: true };
+      
+      const date = now.toLocaleDateString('en-GB', dateOptions).replace(/(\d+) (\w+) (\d+)/, '$1 $2 $3');
+      const time = now.toLocaleTimeString('en-US', timeOptions);
+
+      setDateTime(`Date: ${date} / Time: ${time}`);
+    };
+
+    updateDateTime();
+    const intervalId = setInterval(updateDateTime, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <div
@@ -112,6 +131,9 @@ export default function Home() {
               </div>
             </CollapsibleContent>
           </Collapsible>
+          <p className="text-xs text-white/70 mt-4">
+            {dateTime}
+          </p>
         </div>
       </div>
     </div>
