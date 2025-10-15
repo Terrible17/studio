@@ -57,9 +57,6 @@ export default function Home() {
             <h1 className="text-4xl font-headline font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
               Find Your Pleasure
             </h1>
-            <p className="max-w-md mx-auto text-lg text-white/80">
-              Unlock exclusive content and connect with a community that shares your desires.
-            </p>
           </div>
           <ConsentButton />
         </div>
