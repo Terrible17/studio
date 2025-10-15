@@ -349,17 +349,6 @@ export default function Home() {
               <a href="#" className="hover:text-white">Contact</a>
               <a href="#" className="hover:text-white">About Us</a>
             </div>
-            <div className="flex space-x-4">
-              <a href="#" aria-label="Twitter" className="text-white/70 hover:text-white">
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a href="#" aria-label="Instagram" className="text-white/70 hover:text-white">
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a href="#" aria-label="Facebook" className="text-white/70 hover:text-white">
-                <Facebook className="h-5 w-5" />
-              </a>
-            </div>
           </div>
         </div>
       </footer>
