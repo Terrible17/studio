@@ -54,9 +54,6 @@ export default function Home() {
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center text-center text-white p-4">
         <div className="space-y-6 animate-in fade-in-0 slide-in-from-top-8 duration-1000 ease-out">
           <div className="space-y-2">
-            <h1 className="text-4xl font-headline font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
-              Find Your Pleasure
-            </h1>
           </div>
           <ConsentButton />
         </div>
