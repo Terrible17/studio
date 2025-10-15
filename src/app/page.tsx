@@ -61,8 +61,8 @@ export default function Home() {
         </DropdownMenu>
       </div>
 
-      <div className="relative z-10 flex flex-1 flex-col items-center justify-center p-4 text-center text-white pb-64">
-        <div className="w-full max-w-md">
+      <div className="relative z-10 flex flex-1 flex-col items-center justify-center p-4 text-center text-white pb-32">
+        <div className="w-full max-w-sm">
           <Collapsible>
             <CollapsibleTrigger asChild>
               <Button
