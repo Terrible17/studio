@@ -61,18 +61,20 @@ export default function Home() {
         </DropdownMenu>
       </div>
 
-      <div className="relative z-10 flex flex-1 flex-col items-center justify-center p-4 text-center text-white">
+      <div className="relative z-10 flex flex-1 flex-col items-center justify-center p-4 text-center text-white pb-64">
         <div className="w-full max-w-md">
           <Collapsible>
             <CollapsibleTrigger asChild>
               <Button
                 variant="outline"
                 className={`w-full border-2 transition-all bg-transparent hover:bg-white/10 ${
-                  isConfirmed
-                    ? "border-green-500 text-green-500"
-                    : "border-primary"
+                  isConfirmed ? "border-green-500" : "border-primary"
                 }`}
-                style={!isConfirmed ? { color: "hsl(var(--primary))" } : {}}
+                style={
+                  isConfirmed
+                    ? { color: "hsl(120 100% 50%)" }
+                    : { color: "hsl(var(--primary))" }
+                }
               >
                 Consent 18+
               </Button>
