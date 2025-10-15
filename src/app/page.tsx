@@ -354,7 +354,82 @@ export default function Home() {
               <p className="text-sm text-white/70 mt-2">PleasureX is a private 1v1 video chat site, please use responsibly. 18+</p>
             </div>
             <div className="flex flex-wrap justify-center space-x-6 text-sm text-white/80">
-              <a href="#" className="hover:text-white">Privacy Policy</a>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <button className="hover:text-white">Privacy Policy</button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Privacy Policy</AlertDialogTitle>
+                    <AlertDialogDescription asChild>
+                      <ScrollArea className="h-96 w-full pr-6 text-left">
+                        <div className="space-y-4 text-sm text-muted-foreground">
+                          <p>
+                            <strong>Effective Date:</strong> 16 October 2025
+                          </p>
+                          <p>
+                            PleasureX (“we,” “us,” or “our”) values your privacy. This Privacy Policy explains how we collect, use, and protect your personal information when you use our adult video chat services (“the Site”). By using the Site, you agree to the practices described in this Privacy Policy.
+                          </p>
+                          
+                          <div className="space-y-2">
+                            <h3 className="font-semibold text-foreground">1. Information We Collect</h3>
+                            <p><strong>1.1 Personal Information:</strong> Name, email address, date of birth, and account credentials. Payment information (processed securely by third-party payment providers). Any information you voluntarily provide during chats or profile creation.</p>
+                            <p><strong>1.2 Non-Personal Information:</strong> Device information (IP address, browser type, operating system). Usage data (pages visited, features used, time spent on the Site). Cookies and similar tracking technologies.</p>
+                          </div>
+                          
+                          <div className="space-y-2">
+                            <h3 className="font-semibold text-foreground">2. How We Use Your Information</h3>
+                            <p>We use your information to: Provide, operate, and maintain the Site. Verify your age and eligibility. Improve and personalize your experience. Communicate with you about updates, promotions, or service changes. Detect and prevent fraud, abuse, or illegal activity.</p>
+                          </div>
+
+                          <div className="space-y-2">
+                            <h3 className="font-semibold text-foreground">3. Sharing Your Information</h3>
+                            <p>We do not sell your personal information. We may share information: With trusted third-party service providers (e.g., payment processors, hosting services). If required by law, court order, or government authority. To protect our rights, safety, or property, or that of our users.</p>
+                          </div>
+                          
+                          <div className="space-y-2">
+                            <h3 className="font-semibold text-foreground">4. Adult Content and User Responsibility</h3>
+                             <p>The Site contains explicit content intended for adults. You are responsible for your own content during video chats. We are not responsible for content shared by other users.</p>
+                          </div>
+                          
+                          <div className="space-y-2">
+                             <h3 className="font-semibold text-foreground">5. Cookies and Tracking</h3>
+                             <p>We use cookies and similar technologies to enhance your experience, analyze traffic, and provide targeted content. You can adjust your browser settings to refuse cookies, but some features may not function properly.</p>
+                          </div>
+                          
+                           <div className="space-y-2">
+                             <h3 className="font-semibold text-foreground">6. Data Security</h3>
+                             <p>We implement reasonable technical and organizational measures to protect your data. However, no system is completely secure, and we cannot guarantee absolute protection.</p>
+                          </div>
+                          
+                           <div className="space-y-2">
+                             <h3 className="font-semibold text-foreground">7. Data Retention</h3>
+                             <p>We retain your personal data as long as necessary to provide services and comply with legal obligations. Inactive accounts or deleted accounts may still retain anonymized usage data.</p>
+                          </div>
+                          
+                          <div className="space-y-2">
+                            <h3 className="font-semibold text-foreground">8. Your Rights</h3>
+                            <p>Depending on your jurisdiction, you may have rights to: Access, correct, or delete your personal information. Object to or restrict certain processing of your data. Withdraw consent where applicable. To exercise your rights, contact us at support@pleasurex.com</p>
+                          </div>
+
+                          <div className="space-y-2">
+                            <h3 className="font-semibold text-foreground">9. Children’s Privacy</h3>
+                            <p>The Site is strictly for adults (18+). We do not knowingly collect information from anyone under 18.</p>
+                          </div>
+
+                          <div className="space-y-2">
+                            <h3 className="font-semibold text-foreground">10. Changes to This Privacy Policy</h3>
+                            <p>We may update this Privacy Policy at any time. Continued use of the Site constitutes acceptance of any changes.</p>
+                          </div>
+                        </div>
+                      </ScrollArea>
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogAction>Close</AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <button className="hover:text-white">Terms of Service</button>
@@ -603,5 +678,7 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
