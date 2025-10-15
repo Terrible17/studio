@@ -256,7 +256,7 @@ export default function Home() {
                 variant="outline"
                 role="combobox"
                 aria-expanded={popoverOpen}
-                className="w-full justify-between bg-transparent hover:bg-white/10 border-primary text-primary"
+                className="w-full justify-center bg-transparent hover:bg-white/10 border-white text-white"
               >
                 Choose up to 5
               </Button>
