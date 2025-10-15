@@ -15,9 +15,7 @@ export default function Home() {
 
         <main className="flex-1 flex flex-col items-center justify-center text-center text-white p-4">
           <div className="space-y-4 animate-in fade-in-0 slide-in-from-bottom-8 duration-1000 ease-out">
-            <p className="max-w-2xl font-body text-lg text-white/90 drop-shadow-md md:text-xl">
-              Experience elegance and luxury like never before.
-            </p>
+            
           </div>
         </main>
       </div>
