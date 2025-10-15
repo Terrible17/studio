@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, Mars, Venus, Users, X, Video } from "lucide-react";
+import { Menu, Mars, Venus, Users, X, Video, Twitter, Instagram, Facebook } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Collapsible,
@@ -337,6 +337,32 @@ export default function Home() {
 
         </div>
       </div>
+      <footer className="relative z-10 w-full py-8 px-4 text-white">
+        <div className="container mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+            <div className="mb-4 md:mb-0">
+              <p className="text-sm text-white/70">© {new Date().getFullYear()} PleasureX. All rights reserved.</p>
+            </div>
+            <div className="flex space-x-6 mb-4 md:mb-0 text-sm text-white/80">
+              <a href="#" className="hover:text-white">Privacy Policy</a>
+              <a href="#" className="hover:text-white">Terms of Service</a>
+              <a href="#" className="hover:text-white">Contact</a>
+              <a href="#" className="hover:text-white">About Us</a>
+            </div>
+            <div className="flex space-x-4">
+              <a href="#" aria-label="Twitter" className="text-white/70 hover:text-white">
+                <Twitter className="h-5 w-5" />
+              </a>
+              <a href="#" aria-label="Instagram" className="text-white/70 hover:text-white">
+                <Instagram className="h-5 w-5" />
+              </a>
+              <a href="#" aria-label="Facebook" className="text-white/70 hover:text-white">
+                <Facebook className="h-5 w-5" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
