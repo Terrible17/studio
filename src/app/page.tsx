@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -61,7 +62,7 @@ export default function Home() {
       </div>
 
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center p-4 text-center text-white pb-32">
-        <div className="w-56 mt-[-90px]">
+        <div className="w-56 mt-[-105px]">
           <Collapsible>
             <CollapsibleTrigger asChild>
               <Button
