@@ -310,7 +310,116 @@ export default function Home() {
                     <AccordionItem value="item-5">
                         <AccordionTrigger className="font-medium">Moderation</AccordionTrigger>
                         <AccordionContent>
-                            Moderation policies.
+                           <AlertDialog>
+                                <AlertDialogTrigger asChild>
+                                    <button className="text-sm text-muted-foreground underline">View Moderation Policy</button>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                        <AlertDialogTitle>Moderation Policy</AlertDialogTitle>
+                                        <AlertDialogDescription asChild>
+                                            <ScrollArea className="h-96 w-full pr-6 text-left">
+                                                <div className="space-y-4 text-sm text-muted-foreground">
+                                                  <p><strong>Effective Date:</strong> 16 October 2025</p>
+                                                  <p>At <strong>PleasureX</strong>, we are committed to maintaining a <strong>safe, respectful, and consensual environment</strong> for all adults who use our 1v1 video chat platform. This Moderation Policy outlines how we handle content, user behavior, and reports to ensure the integrity and safety of our community.</p>
+                                                  <Separator/>
+                                                  <div>
+                                                      <h3 className="font-semibold text-foreground">1. Purpose of Moderation</h3>
+                                                      <p>Moderation exists to:</p>
+                                                      <ul className="list-disc pl-5 mt-1 space-y-1">
+                                                          <li>Protect users from abuse, harassment, and illegal content.</li>
+                                                          <li>Enforce our <strong>Terms of Service</strong> and <strong>Community Guidelines</strong>.</li>
+                                                          <li>Maintain a welcoming and consensual adult environment.</li>
+                                                          <li>Ensure compliance with local and international laws.</li>
+                                                      </ul>
+                                                  </div>
+                                                  <Separator/>
+                                                  <div>
+                                                      <h3 className="font-semibold text-foreground">2. What Our Moderators Do</h3>
+                                                      <p>Our moderation team is responsible for:</p>
+                                                      <ul className="list-disc pl-5 mt-1 space-y-1">
+                                                          <li>Reviewing reports and user activity logs.</li>
+                                                          <li>Monitoring live or recorded interactions (if applicable and permitted).</li>
+                                                          <li>Removing inappropriate or harmful content.</li>
+                                                          <li>Warning, suspending, or banning users who violate our rules.</li>
+                                                          <li>Reporting illegal content or behavior to relevant authorities when necessary.</li>
+                                                      </ul>
+                                                  </div>
+                                                  <Separator/>
+                                                  <div>
+                                                      <h3 className="font-semibold text-foreground">3. Content and Behavior That Will Not Be Tolerated</h3>
+                                                      <p>Users may not engage in or share:</p>
+                                                      <ul className="list-disc pl-5 mt-1 space-y-1">
+                                                          <li><strong>Underage content</strong> or any sexual depiction of minors.</li>
+                                                          <li><strong>Non-consensual acts</strong>, harassment, threats, or blackmail.</li>
+                                                          <li><strong>Discrimination</strong> based on race, gender, sexuality, religion, or disability.</li>
+                                                          <li><strong>Violence</strong>, self-harm, or suicide-related material.</li>
+                                                          <li><strong>Illegal activity</strong>, including drugs, weapons, or exploitation.</li>
+                                                          <li><strong>Spam, scams, or impersonation</strong> of other users.</li>
+                                                          <li><strong>Recording or distributing private sessions</strong> without consent.</li>
+                                                      </ul>
+                                                      <p className="mt-2">Any user found engaging in these behaviors will face <strong>immediate suspension or permanent account termination</strong>.</p>
+                                                  </div>
+                                                  <Separator/>
+                                                  <div>
+                                                      <h3 className="font-semibold text-foreground">4. Reporting Violations</h3>
+                                                      <p>If you encounter inappropriate behavior, you can report it directly through the <strong>“Report User”</strong> button or by contacting support at <strong>support@pleasurex.com</strong>.</p>
+                                                      <p>Reports should include:</p>
+                                                      <ul className="list-disc pl-5 mt-1 space-y-1">
+                                                          <li>Username or profile link of the reported user.</li>
+                                                          <li>Description of the incident.</li>
+                                                          <li>Date/time of occurrence.</li>
+                                                          <li>Evidence (optional, if available).</li>
+                                                      </ul>
+                                                      <p className="mt-2">All reports are confidential. Your identity will not be disclosed to the reported user.</p>
+                                                  </div>
+                                                  <Separator/>
+                                                  <div>
+                                                      <h3 className="font-semibold text-foreground">5. Moderation Actions</h3>
+                                                      <p>Depending on the severity of the violation, our moderators may take one or more of the following actions:</p>
+                                                      <ul className="list-disc pl-5 mt-1 space-y-1">
+                                                          <li>Issue a <strong>warning</strong> to the user.</li>
+                                                          <li><strong>Temporarily suspend</strong> the account.</li>
+                                                          <li><strong>Permanently ban</strong> the account.</li>
+                                                          <li><strong>Report</strong> the user to legal authorities for serious offenses.</li>
+                                                      </ul>
+                                                      <p className="mt-2">All moderation decisions are made in good faith and are final.</p>
+                                                  </div>
+                                                  <Separator/>
+                                                  <div>
+                                                      <h3 className="font-semibold text-foreground">6. Appeals</h3>
+                                                      <p>If you believe your account was unfairly restricted or banned, you can appeal by contacting our moderation team at <strong>support@pleasurex.com</strong>. Please include your username, date of suspension, and reason for your appeal.</p>
+                                                  </div>
+                                                  <Separator/>
+                                                  <div>
+                                                      <h3 className="font-semibold text-foreground">7. Privacy and Data Protection</h3>
+                                                      <p>Moderation reviews may include limited access to chat logs or screenshots when necessary for investigations. All such data is handled securely and in accordance with our <strong>Privacy Policy</strong>.</p>
+                                                  </div>
+                                                  <Separator/>
+                                                  <div>
+                                                      <h3 className="font-semibold text-foreground">8. Automated Moderation Tools</h3>
+                                                      <p>To enhance safety, we may use <strong>AI or automated systems</strong> to detect:</p>
+                                                      <ul className="list-disc pl-5 mt-1 space-y-1">
+                                                          <li>Nudity or explicit content involving minors.</li>
+                                                          <li>Abusive or harassing language.</li>
+                                                          <li>Spam or suspicious activity patterns.</li>
+                                                      </ul>
+                                                      <p className="mt-2">These systems assist human moderators but do not replace manual review and judgment.</p>
+                                                  </div>
+                                                  <Separator/>
+                                                  <div>
+                                                      <h3 className="font-semibold text-foreground">9. Legal Compliance</h3>
+                                                      <p>We comply with all applicable laws regarding online adult content, privacy, and user protection. Illegal activities discovered on our platform may be reported to law enforcement with relevant evidence.</p>
+                                                  </div>
+                                                </div>
+                                            </ScrollArea>
+                                        </AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                    <AlertDialogFooter>
+                                        <AlertDialogAction>Close</AlertDialogAction>
+                                    </AlertDialogFooter>
+                                </AlertDialogContent>
+                            </AlertDialog>
                         </AccordionContent>
                     </AccordionItem>
                     <AccordionItem value="item-6">
