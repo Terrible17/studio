@@ -242,7 +242,37 @@ export default function Home() {
                     <AccordionItem value="item-2">
                         <AccordionTrigger className="font-medium">Features</AccordionTrigger>
                         <AccordionContent>
-                            Details about application features.
+                            <AlertDialog>
+                                <AlertDialogTrigger asChild>
+                                    <button className="text-sm text-muted-foreground underline">View Features</button>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                        <AlertDialogTitle>Features</AlertDialogTitle>
+                                        <AlertDialogDescription asChild>
+                                            <ScrollArea className="h-96 w-full pr-6 text-left">
+                                                <div className="space-y-4 text-sm text-muted-foreground">
+                                                  <p>Welcome to PleasureX, the ultimate platform for secure and private 1v1 adult video chat experiences. We’ve designed every feature with your comfort, privacy, and enjoyment in mind.</p>
+                                                  <p>🔒 1. Private 1v1 Video Chats Enjoy one-on-one live video conversations with verified adults. Every session is private, encrypted, and never publicly shared.</p>
+                                                  <p>🧍‍♀️ 2. Verified Profiles We verify users to maintain a safe and authentic community. No fake accounts — just real adults looking to connect in a respectful space.</p>
+                                                  <p>💬 3. Instant Connection Start chatting instantly with available users. No waiting, no matching delays — just click and connect.</p>
+                                                  <p>🛡️ 4. Safe & Secure Environment We use advanced moderation systems and encrypted technology to protect your data, identity, and interactions.</p>
+                                                  <p>🔔 5. Report & Block Tools If you ever feel uncomfortable, you can block or report a user with one click. Your privacy and comfort always come first.</p>
+                                                  <p>💎 6. Premium Features Upgrade for exclusive benefits such as: Priority chat matching Ad-free experience Unlimited session time Special badges or visibility boosts</p>
+                                                  <p>📱 7. Mobile-Friendly Our platform is optimized for all devices — enjoy smooth, high-quality video chats on your phone, tablet, or desktop.</p>
+                                                  <p>🌐 8. Global Community Connect with verified adults from all over the world. Meet, chat, and explore across cultures safely and privately.</p>
+                                                  <p>🧠 9. Smart Matching System Our intelligent matching feature connects you with users based on interests, preferences, and compatibility.</p>
+                                                  <p>❤️ 10. Consent-First Experience Before any video session, users must confirm mutual consent. We value respect, boundaries, and safety above all.</p>
+                                                  <p>PleasureX is more than just a video chat platform — it’s a secure space for adults to connect freely, explore safely, and enjoy meaningful private conversations.</p>
+                                                </div>
+                                            </ScrollArea>
+                                        </AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                    <AlertDialogFooter>
+                                        <AlertDialogAction>Close</AlertDialogAction>
+                                    </AlertDialogFooter>
+                                </AlertDialogContent>
+                            </AlertDialog>
                         </AccordionContent>
                     </AccordionItem>
                     <AccordionItem value="item-3">
@@ -1322,3 +1352,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
