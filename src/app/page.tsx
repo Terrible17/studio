@@ -316,7 +316,24 @@ export default function Home() {
                     <AccordionItem value="item-6">
                         <AccordionTrigger className="font-medium">Contact</AccordionTrigger>
                         <AccordionContent>
-                            Contact details.
+                          <div className="space-y-4 text-sm text-muted-foreground text-left">
+                            <p>
+                              If you have any questions, concerns, or feedback about our website, services, or policies, please contact us using the information below. We aim to respond to all messages within 24–48 hours.
+                            </p>
+                            <p>
+                              <strong>Email:</strong> support@pleasurex.com<br/>
+                              <strong>Support Hours:</strong> Monday – Friday, 9:00 AM to 6:00 PM CAT
+                            </p>
+                            <p>
+                              For security and privacy reasons, please do not send personal or payment information through email.
+                            </p>
+                             <p>
+                              If you’re reporting a content or user issue, include as much detail as possible (such as date, time, and username) so we can assist you quickly.
+                            </p>
+                             <p>
+                              Thank you for reaching out — your feedback helps us keep PleasureX safe, respectful, and enjoyable for everyone.
+                            </p>
+                          </div>
                         </AccordionContent>
                     </AccordionItem>
                     <AccordionItem value="item-7">
