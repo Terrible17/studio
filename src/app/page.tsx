@@ -248,7 +248,127 @@ export default function Home() {
                     <AccordionItem value="item-3">
                         <AccordionTrigger className="font-medium">Privacy & Safety</AccordionTrigger>
                         <AccordionContent>
-                            Information on privacy and safety.
+                            <AlertDialog>
+                                <AlertDialogTrigger asChild>
+                                    <button className="text-sm text-muted-foreground underline">View Privacy & Safety Policy</button>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                        <AlertDialogTitle>Privacy & Safety Policy</AlertDialogTitle>
+                                        <AlertDialogDescription asChild>
+                                            <ScrollArea className="h-96 w-full pr-6 text-left">
+                                                <div className="space-y-4 text-sm text-muted-foreground">
+                                                  <p><strong>Effective Date:</strong> 16 October 2025</p>
+                                                  <p>Welcome to <strong>PleasureX</strong>. Your privacy and safety are our top priorities. This Privacy & Safety Policy explains how we protect your personal information, maintain a secure environment, and promote safe interactions between users on our adult 18+ video chat platform.</p>
+                                                  <p>By using our Site, you agree to the practices described in this Policy.</p>
+                                                  <Separator/>
+                                                  <div>
+                                                      <h3 className="font-semibold text-foreground">1. Our Commitment</h3>
+                                                      <p>We are committed to:</p>
+                                                      <ul className="list-disc pl-5 mt-1 space-y-1">
+                                                          <li>Protecting your personal data and keeping it confidential.</li>
+                                                          <li>Providing a safe, respectful, and consensual community for adults.</li>
+                                                          <li>Preventing illegal, harmful, or non-consensual behavior on our platform.</li>
+                                                          <li>Ensuring transparency in how your data is handled and secured.</li>
+                                                      </ul>
+                                                  </div>
+                                                  <Separator/>
+                                                  <div>
+                                                      <h3 className="font-semibold text-foreground">2. Information We Collect</h3>
+                                                      <p>We collect only the data necessary to provide our services safely and effectively:</p>
+                                                      <p className="font-semibold text-foreground mt-2">Personal Information:</p>
+                                                      <ul className="list-disc pl-5 mt-1 space-y-1">
+                                                          <li>Username, email, date of birth (to confirm age eligibility).</li>
+                                                          <li>Payment details (processed securely through trusted third-party gateways).</li>
+                                                          <li>Profile information you choose to share (photos, bio, interests).</li>
+                                                      </ul>
+                                                      <p className="font-semibold text-foreground mt-2">Technical Data:</p>
+                                                      <ul className="list-disc pl-5 mt-1 space-y-1">
+                                                          <li>IP address, device type, operating system, and browser.</li>
+                                                          <li>Usage data (login times, session activity, chat duration).</li>
+                                                          <li>Cookies and similar technologies to improve performance and security.</li>
+                                                      </ul>
+                                                  </div>
+                                                  <Separator/>
+                                                  <div>
+                                                      <h3 className="font-semibold text-foreground">3. How We Use Your Information</h3>
+                                                      <p>Your data is used to:</p>
+                                                      <ul className="list-disc pl-5 mt-1 space-y-1">
+                                                          <li>Operate and maintain your account.</li>
+                                                          <li>Verify your age and prevent underage access.</li>
+                                                          <li>Match users for 1v1 chats and manage interactions.</li>
+                                                          <li>Detect fraud, abuse, or illegal behavior.</li>
+                                                          <li>Improve site safety, features, and overall experience.</li>
+                                                      </ul>
+                                                      <p className="mt-2">We <strong>do not sell or trade</strong> your personal information to third parties.</p>
+                                                  </div>
+                                                  <Separator/>
+                                                  <div>
+                                                      <h3 className="font-semibold text-foreground">4. Safety Guidelines for Users</h3>
+                                                      <p>Your safety is just as important as your privacy. Please follow these essential safety rules while using our platform:</p>
+                                                      <p className="font-semibold text-foreground mt-2">Do:</p>
+                                                      <ul className="list-disc pl-5 mt-1 space-y-1">
+                                                          <li>Interact respectfully and only with consenting adults.</li>
+                                                          <li>Keep personal details (address, phone number, financial info) private.</li>
+                                                          <li>Report any harassment, threats, or suspicious behavior immediately.</li>
+                                                      </ul>
+                                                      <p className="font-semibold text-foreground mt-2">Do Not:</p>
+                                                      <ul className="list-disc pl-5 mt-1 space-y-1">
+                                                          <li>Share or request explicit content involving anyone under 18.</li>
+                                                          <li>Record or share private chats without consent.</li>
+                                                          <li>Engage in illegal, violent, or non-consensual acts.</li>
+                                                          <li>Impersonate others or use fake identities.</li>
+                                                      </ul>
+                                                  </div>
+                                                  <Separator/>
+                                                  <div>
+                                                      <h3 className="font-semibold text-foreground">5. Reporting and Moderation</h3>
+                                                      <p>If you experience or witness unsafe behavior:</p>
+                                                      <ul className="list-disc pl-5 mt-1 space-y-1">
+                                                          <li>Use the <strong>Report</strong> button during or after the chat.</li>
+                                                          <li>Or contact our team directly at <strong>support@pleasurex.com</strong>.</li>
+                                                      </ul>
+                                                      <p className="mt-2">Our moderation team reviews all reports within 24–48 hours. Serious cases (such as underage or non-consensual activity) are escalated immediately and may be reported to law enforcement.</p>
+                                                      <p className="mt-2">All reports are confidential — your identity will not be shared with the reported user.</p>
+                                                  </div>
+                                                  <Separator/>
+                                                  <div>
+                                                      <h3 className="font-semibold text-foreground">6. Data Protection and Security</h3>
+                                                      <p>We use industry-standard security measures, including:</p>
+                                                      <ul className="list-disc pl-5 mt-1 space-y-1">
+                                                          <li>Encrypted connections (HTTPS/SSL).</li>
+                                                          <li>Secure databases and access control.</li>
+                                                          <li>Continuous monitoring for unauthorized activity.</li>
+                                                      </ul>
+                                                      <p className="mt-2">Despite these measures, no online platform is 100% secure. You share and communicate at your own discretion.</p>
+                                                  </div>
+                                                  <Separator/>
+                                                  <div>
+                                                      <h3 className="font-semibold text-foreground">7. Retention and Deletion</h3>
+                                                      <ul className="list-disc pl-5 mt-1 space-y-1">
+                                                          <li>We keep your personal data only as long as necessary for account operation and legal compliance.</li>
+                                                          <li>You may request deletion of your account or data anytime by contacting us.</li>
+                                                      </ul>
+                                                  </div>
+                                                  <Separator/>
+                                                  <div>
+                                                      <h3 className="font-semibold text-foreground">8. Consent and Age Verification</h3>
+                                                      <p>All users must confirm they are <strong>18 years or older</strong> before accessing the platform. We may use selfie or ID verification to ensure compliance with age restrictions.</p>
+                                                  </div>
+                                                  <Separator/>
+                                                  <div>
+                                                      <h3 className="font-semibold text-foreground">9. Updates to This Policy</h3>
+                                                      <p>We may update this Privacy & Safety Policy from time to time. Changes take effect once posted on the Site. We encourage you to review this page regularly.</p>
+                                                  </div>
+                                                </div>
+                                            </ScrollArea>
+                                        </AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                    <AlertDialogFooter>
+                                        <AlertDialogAction>Close</AlertDialogAction>
+                                    </AlertDialogFooter>
+                                </AlertDialogContent>
+                            </AlertDialog>
                         </AccordionContent>
                     </AccordionItem>
                     <AccordionItem value="item-4">
