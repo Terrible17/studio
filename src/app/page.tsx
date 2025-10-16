@@ -352,7 +352,145 @@ export default function Home() {
                     <AccordionItem value="item-7">
                         <AccordionTrigger className="font-medium">Terms & Conditions</AccordionTrigger>
                         <AccordionContent>
-                            Terms and conditions.
+                             <AlertDialog>
+                                <AlertDialogTrigger asChild>
+                                  <button className="text-sm text-muted-foreground underline">View Terms & Conditions</button>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                  <AlertDialogHeader>
+                                    <AlertDialogTitle>Terms and Conditions</AlertDialogTitle>
+                                    <AlertDialogDescription asChild>
+                                      <ScrollArea className="h-96 w-full pr-6 text-left">
+                                        <div className="space-y-4 text-sm text-muted-foreground">
+                                          <p>
+                                            <strong>Effective Date:</strong> 16 October 2025
+                                          </p>
+                                          <p>
+                                            Welcome to <strong>PleasureX</strong> (“the Site,” “we,” “our,” or “us”). These Terms and Conditions (“Terms”) govern your access to and use of our adult 1v1 video chat services. By using the Site, you agree to be bound by these Terms. If you do not agree, you must not access or use the Site.
+                                          </p>
+                                          <Separator/>
+                                          <div>
+                                            <h3 className="font-semibold text-foreground">1. Eligibility</h3>
+                                            <ul className="list-disc pl-5 mt-1 space-y-1">
+                                                <li>You must be <strong>18 years or older</strong> (or the age of majority in your country) to access or use this Site.</li>
+                                                <li>By creating an account or using the Site, you confirm that you meet this requirement.</li>
+                                            </ul>
+                                          </div>
+                                          <Separator/>
+                                           <div>
+                                            <h3 className="font-semibold text-foreground">2. Account Registration</h3>
+                                            <ul className="list-disc pl-5 mt-1 space-y-1">
+                                                <li>You may need to register an account to access certain features.</li>
+                                                <li>You agree to provide accurate and complete information when creating your account.</li>
+                                                <li>You are responsible for maintaining the confidentiality of your login details and for all activities under your account.</li>
+                                                <li>We reserve the right to suspend or delete any account that violates these Terms or our policies.</li>
+                                            </ul>
+                                          </div>
+                                          <Separator/>
+                                           <div>
+                                            <h3 className="font-semibold text-foreground">3. Acceptable Use</h3>
+                                            <p>You agree <strong>not to use the Site</strong> for any unlawful or prohibited purpose, including but not limited to:</p>
+                                            <ul className="list-disc pl-5 mt-1 space-y-1">
+                                                <li>Sharing or requesting content involving <strong>minors</strong> or <strong>non-consensual acts</strong>.</li>
+                                                <li>Harassing, threatening, or impersonating another person.</li>
+                                                <li>Uploading viruses, malware, or engaging in hacking or phishing activities.</li>
+                                                <li>Soliciting or promoting illegal services or products.</li>
+                                                <li>Sharing or streaming copyrighted material you do not own.</li>
+                                            </ul>
+                                            <p className="mt-2">We reserve the right to remove any content and take legal action for violations.</p>
+                                          </div>
+                                          <Separator/>
+                                           <div>
+                                            <h3 className="font-semibold text-foreground">4. Adult Content Notice</h3>
+                                            <ul className="list-disc pl-5 mt-1 space-y-1">
+                                                <li>The Site contains <strong>explicit adult material</strong> intended only for adults 18+.</li>
+                                                <li>You understand and accept that you may encounter sexual or mature content.</li>
+                                                <li>You agree not to allow anyone under 18 to access your account or the Site.</li>
+                                            </ul>
+                                          </div>
+                                          <Separator/>
+                                           <div>
+                                            <h3 className="font-semibold text-foreground">5. Payments and Subscriptions</h3>
+                                            <ul className="list-disc pl-5 mt-1 space-y-1">
+                                                <li>Some Site features may require payment or subscription.</li>
+                                                <li>All payments are processed securely through third-party providers.</li>
+                                                <li>Fees are non-refundable except where required by law or explicitly stated.</li>
+                                                <li>You are responsible for all charges associated with your account.</li>
+                                            </ul>
+                                          </div>
+                                          <Separator/>
+                                           <div>
+                                            <h3 className="font-semibold text-foreground">6. User Content</h3>
+                                            <ul className="list-disc pl-5 mt-1 space-y-1">
+                                                <li>You retain ownership of any content (video, messages, images) you create or upload.</li>
+                                                <li>By using the Site, you grant us a <strong>limited, non-exclusive license</strong> to host, display, and transmit your content for the purpose of providing our services.</li>
+                                                <li>You are solely responsible for the content you share and must ensure it complies with our rules and laws.</li>
+                                            </ul>
+                                          </div>
+                                           <Separator/>
+                                           <div>
+                                            <h3 className="font-semibold text-foreground">7. Privacy</h3>
+                                            <ul className="list-disc pl-5 mt-1 space-y-1">
+                                                <li>Your privacy is important to us. Our <button className="underline inline">Privacy Policy</button> explains how we collect, use, and protect your information.</li>
+                                                <li>By using the Site, you consent to our data practices as described in the Privacy Policy.</li>
+                                            </ul>
+                                          </div>
+                                           <Separator/>
+                                           <div>
+                                            <h3 className="font-semibold text-foreground">8. Termination</h3>
+                                            <ul className="list-disc pl-5 mt-1 space-y-1">
+                                                <li>We may suspend or permanently terminate your account if you violate these Terms.</li>
+                                                <li>You may delete your account at any time through your profile settings.</li>
+                                                <li>Upon termination, certain obligations (e.g., outstanding payments or investigations) may continue.</li>
+                                            </ul>
+                                          </div>
+                                           <Separator/>
+                                           <div>
+                                            <h3 className="font-semibold text-foreground">9. Disclaimers</h3>
+                                            <ul className="list-disc pl-5 mt-1 space-y-1">
+                                                <li>The Site is provided <strong>“as is”</strong> and <strong>“as available.”</strong></li>
+                                                <li>We make no warranties, expressed or implied, regarding uptime, accuracy, or reliability.</li>
+                                                <li>We are not responsible for any user-generated content or behavior during private chats.</li>
+                                            </ul>
+                                          </div>
+                                           <Separator/>
+                                            <div>
+                                                <h3 className="font-semibold text-foreground">10. Limitation of Liability</h3>
+                                                <p>To the fullest extent permitted by law:</p>
+                                                <ul className="list-disc pl-5 mt-1 space-y-1">
+                                                    <li>We are not liable for any indirect, incidental, or consequential damages resulting from your use of the Site.</li>
+                                                    <li>Your sole remedy for dissatisfaction is to stop using the Site.</li>
+                                                </ul>
+                                            </div>
+                                            <Separator/>
+                                            <div>
+                                                <h3 className="font-semibold text-foreground">11. Indemnification</h3>
+                                                <p>You agree to indemnify and hold harmless <strong>PleasureX</strong>, its affiliates, employees, and partners from any claims or damages arising from your use of the Site or violation of these Terms.</p>
+                                            </div>
+                                            <Separator/>
+                                            <div>
+                                                <h3 className="font-semibold text-foreground">12. Modifications to Terms</h3>
+                                                <p>We may update these Terms at any time. Changes will take effect immediately upon posting. Continued use of the Site means you accept the updated Terms.</p>
+                                            </div>
+                                            <Separator/>
+                                            <div>
+                                                <h3 className="font-semibold text-foreground">13. Governing Law</h3>
+                                                <p>These Terms are governed by and construed in accordance with the laws of <strong>[Your Country / Jurisdiction]</strong>. Any disputes will be resolved in the courts located in <strong>[Your Jurisdiction]</strong>.</p>
+                                            </div>
+                                            <Separator/>
+                                            <div>
+                                                <h3 className="font-semibold text-foreground">14. Contact Information</h3>
+                                                <p>If you have questions about these Terms or need support, contact us at: support@pleasurex.com</p>
+                                            </div>
+                                        </div>
+                                      </ScrollArea>
+                                    </AlertDialogDescription>
+                                  </AlertDialogHeader>
+                                  <AlertDialogFooter>
+                                    <AlertDialogAction>Close</AlertDialogAction>
+                                  </AlertDialogFooter>
+                                </AlertDialogContent>
+                              </AlertDialog>
                         </AccordionContent>
                     </AccordionItem>
                     <AccordionItem value="item-8">
