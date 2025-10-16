@@ -316,24 +316,37 @@ export default function Home() {
                     <AccordionItem value="item-6">
                         <AccordionTrigger className="font-medium">Contact</AccordionTrigger>
                         <AccordionContent>
-                          <div className="space-y-4 text-sm text-muted-foreground text-left">
-                            <p>
-                              If you have any questions, concerns, or feedback about our website, services, or policies, please contact us using the information below. We aim to respond to all messages within 24–48 hours.
-                            </p>
-                            <p>
-                              <strong>Email:</strong> support@pleasurex.com<br/>
-                              <strong>Support Hours:</strong> Monday – Friday, 9:00 AM to 6:00 PM CAT
-                            </p>
-                            <p>
-                              For security and privacy reasons, please do not send personal or payment information through email.
-                            </p>
-                             <p>
-                              If you’re reporting a content or user issue, include as much detail as possible (such as date, time, and username) so we can assist you quickly.
-                            </p>
-                             <p>
-                              Thank you for reaching out — your feedback helps us keep PleasureX safe, respectful, and enjoyable for everyone.
-                            </p>
-                          </div>
+                          <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                              <button className="text-sm text-muted-foreground underline">View Contact Details</button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>Contact Us</AlertDialogTitle>
+                                <AlertDialogDescription className="space-y-4 pt-2 text-left">
+                                  <p>
+                                    If you have any questions, concerns, or feedback about our website, services, or policies, please contact us using the information below. We aim to respond to all messages within 24–48 hours.
+                                  </p>
+                                  <p>
+                                    <strong>Email:</strong> support@pleasurex.com<br/>
+                                    <strong>Support Hours:</strong> Monday – Friday, 9:00 AM to 6:00 PM CAT
+                                  </p>
+                                  <p>
+                                    For security and privacy reasons, please do not send personal or payment information through email.
+                                  </p>
+                                  <p>
+                                    If you’re reporting a content or user issue, include as much detail as possible (such as date, time, and username) so we can assist you quickly.
+                                  </p>
+                                  <p>
+                                    Thank you for reaching out — your feedback helps us keep PleasureX safe, respectful, and enjoyable for everyone.
+                                  </p>
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogAction>Close</AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
                         </AccordionContent>
                     </AccordionItem>
                     <AccordionItem value="item-7">
@@ -345,7 +358,61 @@ export default function Home() {
                     <AccordionItem value="item-8">
                         <AccordionTrigger className="font-medium">Report</AccordionTrigger>
                         <AccordionContent>
-                           How to report issues.
+                            <AlertDialog>
+                                <AlertDialogTrigger asChild>
+                                    <button className="text-sm text-muted-foreground underline">View Report Policy</button>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                        <AlertDialogTitle>Report User / Report Content</AlertDialogTitle>
+                                        <AlertDialogDescription asChild>
+                                            <ScrollArea className="h-96 w-full pr-6 text-left">
+                                                <div className="space-y-4 text-sm text-muted-foreground">
+                                                    <p>We take community safety seriously at <strong>PleasureX</strong>. If you experience or witness any behavior that violates our rules, please report it immediately.</p>
+                                                    <div>
+                                                        <h3 className="font-semibold text-foreground">You can report a user for any of the following reasons:</h3>
+                                                        <ul className="list-disc pl-5 space-y-1 mt-2">
+                                                            <li>Sharing illegal or underage content</li>
+                                                            <li>Harassment, threats, or hate speech</li>
+                                                            <li>Non-consensual or explicit behavior</li>
+                                                            <li>Impersonation or fake profiles</li>
+                                                            <li>Spam, scams, or payment fraud</li>
+                                                            <li>Any other activity that violates our Terms of Service</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div>
+                                                        <h3 className="font-semibold text-foreground">When you submit a report, please include (if possible):</h3>
+                                                        <ul className="list-disc pl-5 space-y-1 mt-2">
+                                                            <li>The username of the person involved</li>
+                                                            <li>A short description of what happened</li>
+                                                            <li>The time or date of the incident</li>
+                                                            <li>Screenshots or video evidence (optional but helpful)</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div>
+                                                        <h3 className="font-semibold text-foreground">After You Report</h3>
+                                                        <ul className="list-disc pl-5 space-y-1 mt-2">
+                                                            <li>Our moderation team will review your report within 24–48 hours.</li>
+                                                            <li>Depending on the severity, the user may be suspended, permanently banned, or reported to authorities.</li>
+                                                            <li>All reports are confidential. Your identity will not be shared with the reported user.</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div>
+                                                        <h3 className="font-semibold text-foreground">Important Notes</h3>
+                                                        <ul className="list-disc pl-5 space-y-1 mt-2">
+                                                            <li>False reports or misuse of the report feature may result in account suspension.</li>
+                                                            <li>If you are in immediate danger or witness illegal activity involving minors, please report directly to your local authorities.</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </ScrollArea>
+                                        </AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                    <AlertDialogFooter>
+                                        <AlertDialogAction>Close</AlertDialogAction>
+                                    </AlertDialogFooter>
+                                </AlertDialogContent>
+                            </AlertDialog>
                         </AccordionContent>
                     </AccordionItem>
                 </Accordion>
