@@ -254,7 +254,57 @@ export default function Home() {
                     <AccordionItem value="item-4">
                         <AccordionTrigger className="font-medium">Legal</AccordionTrigger>
                         <AccordionContent>
-                            Legal information.
+                            <AlertDialog>
+                                <AlertDialogTrigger asChild>
+                                  <button className="text-sm text-muted-foreground underline">View Legal Policy</button>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                  <AlertDialogHeader>
+                                    <AlertDialogTitle>Legal Policy</AlertDialogTitle>
+                                    <AlertDialogDescription asChild>
+                                      <ScrollArea className="h-96 w-full pr-6 text-left">
+                                        <div className="space-y-4 text-sm text-muted-foreground">
+                                          <div>
+                                            <h3 className="font-semibold text-foreground">1. General Notice</h3>
+                                            <p>This website (“PleasureX”) operates as an adult-oriented 18+ platform designed for private, consensual video interactions between users. By accessing or using this site, you confirm that you are 18 years of age or older and legally permitted to view adult content in your country or region. If you are under 18 (or under the age of majority in your jurisdiction), you must leave this website immediately.</p>
+                                          </div>
+                                          <div>
+                                            <h3 className="font-semibold text-foreground">2. Legal Compliance</h3>
+                                            <p>PleasureX complies with all applicable international and local laws governing adult content, online safety, and digital communications. All models, creators, and streamers are required to verify their identity and age before participating in live or recorded sessions. We do not tolerate or permit: The appearance or involvement of minors (under 18). Non-consensual or exploitative acts. Distribution of illegal or copyrighted materials. Any content or user found violating these rules will be permanently removed and reported to the appropriate authorities.</p>
+                                          </div>
+                                          <div>
+                                            <h3 className="font-semibold text-foreground">3. User Responsibility</h3>
+                                            <p>All users are personally responsible for: Ensuring they are of legal age to access adult material. Complying with the laws of their country or residence. The content they create, upload, or stream on the platform. Respecting the privacy, consent, and rights of others. PleasureX assumes no responsibility for the actions or conduct of individual users.</p>
+                                          </div>
+                                          <div>
+                                            <h3 className="font-semibold text-foreground">4. Copyright and Intellectual Property</h3>
+                                            <p>All text, graphics, logos, and design elements on this site are owned or licensed by PleasureX. Users may not copy, reproduce, or redistribute any content or materials without written permission. Creators retain ownership of their live and uploaded content but grant PleasureX a limited license to display it within the platform.</p>
+                                          </div>
+                                          <div>
+                                            <h3 className="font-semibold text-foreground">5. Limitation of Liability</h3>
+                                            <p>PleasureX provides its services “as is” and makes no guarantees regarding availability, accuracy, or reliability. We are not liable for any damages, losses, or claims resulting from the use of the platform, including interactions between users. You use the site at your own discretion and risk.</p>
+                                          </div>
+                                          <div>
+                                            <h3 className="font-semibold text-foreground">6. Third-Party Links</h3>
+                                            <p>This site may contain external links to other websites or services. PleasureX is not responsible for the content, privacy policies, or safety of third-party websites.</p>
+                                          </div>
+                                          <div>
+                                            <h3 className="font-semibold text-foreground">7. Moderation and Legal Cooperation</h3>
+                                            <p>We cooperate fully with law enforcement in cases involving illegal activity, including but not limited to underage users, exploitation, or fraud. All report logs and relevant data may be shared with authorities when legally required.</p>
+                                          </div>
+                                          <div>
+                                            <h3 className="font-semibold text-foreground">8. Changes to This Policy</h3>
+                                            <p>PleasureX reserves the right to update or modify this Legal Policy at any time. All changes will be posted here, and continued use of the site implies agreement with the latest version.</p>
+                                          </div>
+                                        </div>
+                                      </ScrollArea>
+                                    </AlertDialogDescription>
+                                  </AlertDialogHeader>
+                                  <AlertDialogFooter>
+                                    <AlertDialogAction>Close</AlertDialogAction>
+                                  </AlertDialogFooter>
+                                </AlertDialogContent>
+                              </AlertDialog>
                         </AccordionContent>
                     </AccordionItem>
                     <AccordionItem value="item-5">
@@ -821,5 +871,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
