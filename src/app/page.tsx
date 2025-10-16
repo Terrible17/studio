@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, Mars, Venus, Users, X, Video } from "lucide-react";
+import { Menu, Mars, Venus, Users, X, Video, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Collapsible,
@@ -47,6 +47,22 @@ import {
   AlertDialogFooter,
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
+import {
+    Sheet,
+    SheetContent,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+    SheetClose
+} from "@/components/ui/sheet";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Separator } from "@/components/ui/separator";
+
 
 type Gender = "Male" | "Female" | "Couple";
 
@@ -194,24 +210,81 @@ export default function Home() {
           </AlertDialogContent>
         </AlertDialog>
         <ThemeToggle />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              aria-label="Open menu"
-              className="hover:bg-transparent"
-            >
-              <Menu className="h-6 w-6" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-48">
-            <DropdownMenuItem>Home</DropdownMenuItem>
-            <DropdownMenuItem>Features</DropdownMenuItem>
-            <DropdownMenuItem>Pricing</DropdownMenuItem>
-            <DropdownMenuItem>About</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Sheet>
+            <SheetTrigger asChild>
+                <Button
+                variant="ghost"
+                size="icon"
+                aria-label="Open menu"
+                className="hover:bg-transparent"
+                >
+                <Menu className="h-6 w-6" />
+                </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="bg-background w-full sm:max-w-xs">
+                <SheetHeader>
+                <SheetTitle className="text-center">Menu</SheetTitle>
+                <SheetClose asChild>
+                    <button className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
+                        <X className="h-4 w-4" />
+                        <span className="sr-only">Close</span>
+                    </button>
+                </SheetClose>
+                </SheetHeader>
+                <div className="py-8">
+                <Accordion type="single" collapsible className="w-full">
+                    <AccordionItem value="item-1">
+                        <AccordionTrigger className="font-medium">Premium</AccordionTrigger>
+                        <AccordionContent>
+                           More details about premium features.
+                        </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-2">
+                        <AccordionTrigger className="font-medium">Features</AccordionTrigger>
+                        <AccordionContent>
+                            Details about application features.
+                        </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-3">
+                        <AccordionTrigger className="font-medium">Privacy & Safety</AccordionTrigger>
+                        <AccordionContent>
+                            Information on privacy and safety.
+                        </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-4">
+                        <AccordionTrigger className="font-medium">Legal</AccordionTrigger>
+                        <AccordionContent>
+                            Legal information.
+                        </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-5">
+                        <AccordionTrigger className="font-medium">Moderation</AccordionTrigger>
+                        <AccordionContent>
+                            Moderation policies.
+                        </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-6">
+                        <AccordionTrigger className="font-medium">Contact</AccordionTrigger>
+                        <AccordionContent>
+                            Contact details.
+                        </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-7">
+                        <AccordionTrigger className="font-medium">Terms & Conditions</AccordionTrigger>
+                        <AccordionContent>
+                            Terms and conditions.
+                        </AccordionContent>
+                    </AccordionItem>
+                    <AccordionItem value="item-8">
+                        <AccordionTrigger className="font-medium">Report</AccordionTrigger>
+                        <AccordionContent>
+                           How to report issues.
+                        </AccordionContent>
+                    </AccordionItem>
+                </Accordion>
+                </div>
+            </SheetContent>
+        </Sheet>
       </div>
 
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center p-4 text-center text-white">
@@ -748,3 +821,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
