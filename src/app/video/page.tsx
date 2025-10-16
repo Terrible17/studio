@@ -3,7 +3,7 @@
 
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Mic, MicOff, Video, PhoneOff, SkipForward, MessageSquare, Settings, RotateCamera, Send, Flag, Languages, Map, ShieldCheck, Gem } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogContent,
@@ -15,16 +15,64 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
+import { ChatSettings } from "@/components/chat-settings";
+import { useToast } from "@/hooks/use-toast";
+import { Badge } from "@/components/ui/badge";
 
 export default function VideoPage() {
   const router = useRouter();
+  const { toast } = useToast();
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
+  const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const [isSearching, setIsSearching] = useState(false);
+  const [isConnected, setIsConnected] = useState(false);
+  const [isMessaging, setIsMessaging] = useState(false);
+
+  const [isMuted, setIsMuted] = useState(false);
+  const [isPremium, setIsPremium] = useState(false); // Mock state for premium
 
   const allAccepted = termsAccepted && privacyAccepted;
+
+  useEffect(() => {
+    if (showVideo) {
+      const getCameraPermission = async () => {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          console.error("Camera API is not supported by this browser.");
+          setHasCameraPermission(false);
+          toast({
+            variant: "destructive",
+            title: "Unsupported Browser",
+            description: "Your browser does not support the necessary video features.",
+          });
+          return;
+        }
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+          setHasCameraPermission(true);
+
+          if (videoRef.current) {
+            videoRef.current.srcObject = stream;
+          }
+        } catch (error) {
+          console.error("Error accessing camera:", error);
+          setHasCameraPermission(false);
+          toast({
+            variant: "destructive",
+            title: "Camera Access Denied",
+            description: "Please enable camera permissions in your browser settings.",
+          });
+        }
+      };
+
+      getCameraPermission();
+    }
+  }, [showVideo, toast]);
 
   const handleAgree = () => {
     if (allAccepted) {
@@ -32,16 +80,126 @@ export default function VideoPage() {
     }
   };
 
+  const startSearch = () => {
+    setIsSearching(true);
+    // Mock connection
+    setTimeout(() => {
+      setIsSearching(false);
+      setIsConnected(true);
+      toast({
+        description: (
+          <div className="flex items-center gap-2">
+            <span>♀️</span>
+            <span>South Africa</span>
+            <span>🇿🇦</span>
+          </div>
+        ),
+      });
+    }, 3000);
+  };
+
+  const endCall = () => {
+    setIsConnected(false);
+    setIsSearching(false);
+    setIsMessaging(false);
+  };
+
+  const skipCall = () => {
+    setIsConnected(false);
+    startSearch();
+  };
+
+  const renderFooter = () => {
+    if (!isSearching && !isConnected) {
+      return (
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
+          <Button
+            size="icon"
+            className="h-20 w-20 rounded-full bg-green-500 hover:bg-green-600"
+            onClick={startSearch}
+          >
+            <Video className="h-8 w-8" />
+          </Button>
+        </div>
+      );
+    }
+
+    return (
+      <div className="absolute bottom-0 left-0 right-0 p-4 bg-black/30">
+        {isMessaging ? (
+          <div className="flex items-center gap-2">
+            <div className="flex-1 relative">
+                <input type="text" placeholder="Type a message..." className="w-full bg-gray-700/50 rounded-full py-2 px-4 text-white placeholder:text-gray-400" />
+                <Button size="icon" variant="ghost" className="absolute right-12 top-1/2 -translate-y-1/2">
+                 😍
+                </Button>
+            </div>
+            <Button size="icon" className="rounded-full bg-primary"><Send className="h-5 w-5" /></Button>
+          </div>
+        ) : (
+          <div className="flex justify-around items-center">
+            <Button variant="ghost" size="icon" className="h-14 w-14 rounded-full bg-white/20" onClick={() => setIsMuted(!isMuted)}>
+              {isMuted ? <MicOff /> : <Mic />}
+            </Button>
+            <Button variant="ghost" size="icon" className="h-14 w-14 rounded-full bg-white/20">
+              <RotateCamera />
+            </Button>
+            <Button variant="destructive" size="icon" className="h-16 w-16 rounded-full" onClick={endCall}>
+              <PhoneOff />
+            </Button>
+            <Button variant="ghost" size="icon" className="h-14 w-14 rounded-full bg-white/20" onClick={skipCall}>
+              <SkipForward />
+            </Button>
+            <Button variant="ghost" size="icon" className="h-14 w-14 rounded-full bg-white/20" onClick={() => setIsMessaging(true)}>
+              <MessageSquare />
+            </Button>
+            <ChatSettings isPremium={isPremium} />
+          </div>
+        )}
+      </div>
+    );
+  };
+
+
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-900 text-white">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-900 text-white relative overflow-hidden">
       {showVideo ? (
         <>
-          <div className="absolute top-4 left-4">
+          <div className="absolute top-4 left-4 z-20">
             <Button variant="ghost" size="icon" onClick={() => router.back()}>
               <ArrowLeft className="h-6 w-6" />
             </Button>
           </div>
-          <h1 className="text-4xl font-bold">Live Video</h1>
+
+          <div className="absolute inset-0 w-full h-full">
+            <video ref={videoRef} className="w-full h-full object-cover" autoPlay muted playsInline />
+            {hasCameraPermission === false && (
+                <div className="absolute inset-0 flex items-center justify-center bg-black">
+                    <p className="text-destructive">Camera access denied. Please enable it in your browser settings.</p>
+                </div>
+            )}
+             {hasCameraPermission && !isConnected && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40">
+                    <h1 className="text-6xl font-cursive text-white/90">Pleasure X</h1>
+                     {isSearching && (
+                        <div className="mt-4 text-lg text-white/80">Searching...</div>
+                    )}
+                </div>
+            )}
+
+            {isConnected && (
+                 <video
+                    className="absolute top-4 right-4 h-40 w-32 object-cover rounded-md border-2 border-primary z-10"
+                    autoPlay
+                    muted
+                    playsInline
+                    ref={videoRef}
+                />
+            )}
+          </div>
+         
+          {renderFooter()}
+
         </>
       ) : (
         <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
@@ -158,3 +316,5 @@ export default function VideoPage() {
     </div>
   );
 }
+
+    
