@@ -28,7 +28,9 @@ export default function VideoPage() {
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const selfVideoRef = useRef<HTMLVideoElement>(null);
+  const remoteVideoRef = useRef<HTMLVideoElement>(null);
+
 
   const [isSearching, setIsSearching] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
@@ -56,8 +58,13 @@ export default function VideoPage() {
           const stream = await navigator.mediaDevices.getUserMedia({ video: true });
           setHasCameraPermission(true);
 
-          if (videoRef.current) {
-            videoRef.current.srcObject = stream;
+          if (selfVideoRef.current) {
+            selfVideoRef.current.srcObject = stream;
+          }
+          // When connected, the remote video would be attached to remoteVideoRef.
+          // For now, we can mirror the self-view for demonstration.
+          if (remoteVideoRef.current) {
+             remoteVideoRef.current.srcObject = stream;
           }
         } catch (error) {
           console.error("Error accessing camera:", error);
@@ -112,7 +119,7 @@ export default function VideoPage() {
   const renderFooter = () => {
     if (!isSearching && !isConnected) {
       return (
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20">
           <Button
             size="icon"
             className="h-20 w-20 rounded-full bg-green-500 hover:bg-green-600"
@@ -125,7 +132,7 @@ export default function VideoPage() {
     }
 
     return (
-      <div className="absolute bottom-0 left-0 right-0 p-4 bg-black/30">
+      <div className="absolute bottom-0 left-0 right-0 p-4 bg-black/30 z-20">
         {isMessaging ? (
           <div className="flex items-center gap-2">
             <div className="flex-1 relative">
@@ -162,7 +169,7 @@ export default function VideoPage() {
 
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-900 text-white relative overflow-hidden">
+    <div className="flex h-screen flex-col items-center justify-center bg-gray-900 text-white relative overflow-hidden">
       {showVideo ? (
         <>
           <div className="absolute top-4 left-4 z-20">
@@ -170,16 +177,39 @@ export default function VideoPage() {
               <ArrowLeft className="h-6 w-6" />
             </Button>
           </div>
-
-          <div className="absolute inset-0 w-full h-full">
-            <video ref={videoRef} className="w-full h-full object-cover" autoPlay muted playsInline />
+          
+           <div className="absolute inset-0 w-full h-full">
             {hasCameraPermission === false && (
                 <div className="absolute inset-0 flex items-center justify-center bg-black">
                     <p className="text-destructive">Camera access denied. Please enable it in your browser settings.</p>
                 </div>
             )}
-             {hasCameraPermission && !isConnected && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40">
+            
+            {/* Remote video feed (hidden when not connected) */}
+            <video
+              ref={remoteVideoRef}
+              className={cn(
+                "w-full h-full object-cover",
+                !isConnected && "hidden"
+              )}
+              autoPlay
+              playsInline
+            />
+
+             {/* Self-preview, full screen when not connected */}
+            <video
+              ref={selfVideoRef}
+              className={cn(
+                "w-full h-full object-cover",
+                isConnected && "hidden" 
+              )}
+              autoPlay
+              muted
+              playsInline
+            />
+
+            {hasCameraPermission && !isConnected && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 z-10">
                     <h1 className="text-6xl font-cursive text-white/90">Pleasure X</h1>
                      {isSearching && (
                         <div className="mt-4 text-lg text-white/80">Searching...</div>
@@ -193,7 +223,7 @@ export default function VideoPage() {
                     autoPlay
                     muted
                     playsInline
-                    ref={videoRef}
+                    ref={selfVideoRef}
                 />
             )}
           </div>
@@ -316,5 +346,3 @@ export default function VideoPage() {
     </div>
   );
 }
-
-    
