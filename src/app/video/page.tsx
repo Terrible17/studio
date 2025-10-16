@@ -3,7 +3,7 @@
 
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Mic, MicOff, Video, PhoneOff, SkipForward, MessageSquare, Settings, RotateCamera, Send, Flag, Languages, Map, ShieldCheck, Gem } from "lucide-react";
+import { ArrowLeft, Mic, MicOff, Video, PhoneOff, SkipForward, MessageSquare, Settings, RotateCw, Send, Flag, Languages, Map, ShieldCheck, Gem } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogContent,
@@ -142,7 +142,7 @@ export default function VideoPage() {
               {isMuted ? <MicOff /> : <Mic />}
             </Button>
             <Button variant="ghost" size="icon" className="h-14 w-14 rounded-full bg-white/20">
-              <RotateCamera />
+              <RotateCw />
             </Button>
             <Button variant="destructive" size="icon" className="h-16 w-16 rounded-full" onClick={endCall}>
               <PhoneOff />
