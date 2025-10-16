@@ -152,14 +152,47 @@ export default function Home() {
       <div className="absolute inset-0 bg-black/40" />
 
       <div className="absolute top-4 right-4 z-20 flex items-center space-x-1">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="text-accent hover:bg-transparent hover:text-accent/90"
-          aria-label="Premium"
-        >
-          <PremiumIcon className="h-6 w-6" />
-        </Button>
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-accent hover:bg-transparent hover:text-accent/90"
+              aria-label="Premium"
+            >
+              <PremiumIcon className="h-6 w-6" />
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Premium Features</AlertDialogTitle>
+              <AlertDialogDescription asChild>
+                <div className="space-y-4 pt-2 text-left text-sm text-muted-foreground">
+                    <ul className="list-disc pl-5 space-y-2">
+                        <li>No Ads</li>
+                        <li>Unlimited Swipes</li>
+                        <li>Connect to any Geo location</li>
+                        <li>No restriction on Gender filters</li>
+                        <li>Hide location</li>
+                        <li>Premium badge</li>
+                    </ul>
+                    <div className="border-t border-border pt-4">
+                        <p className="font-semibold text-foreground">Once-off Payment (No Subscription)</p>
+                        <p>$8 for 15 days.</p>
+                        <p className="text-xs text-muted-foreground mt-1">Payment will be handled by PayPal.</p>
+                    </div>
+                    <div className="border-t border-border pt-4">
+                        <p className="font-semibold text-foreground">Watch Ads for Limited Access</p>
+                        <p>Enjoy Premium Features for a limited time of 5 minutes when opting into viewing 2 ads. No cap on how many times premium features can be unlocked with ads.</p>
+                    </div>
+                </div>
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogAction>Close</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
         <ThemeToggle />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
