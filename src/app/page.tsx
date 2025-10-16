@@ -679,27 +679,29 @@ export default function Home() {
                   <AlertDialogHeader>
                     <AlertDialogTitle>About Us</AlertDialogTitle>
                     <AlertDialogDescription asChild>
-                      <div className="space-y-4 pt-2 text-left text-sm text-muted-foreground">
-                        <p>
-                          Welcome to <strong>PleasureX</strong>, the premier platform for safe, private, and exciting 1v1 adult video chats. Our mission is to provide adults 18+ with a space where they can connect, explore, and enjoy intimate conversations in a secure environment.
-                        </p>
-                        <p>
-                          We understand that privacy and discretion are important. That’s why we’ve designed our platform to give you full control over your experience while keeping your personal information safe. Every chat is private, and every user is verified to ensure a respectful and enjoyable community.
-                        </p>
-                        <p>
-                          At <strong>PleasureX</strong>, we believe in creating connections that are fun, consensual, and completely adult-focused. Whether you’re here to meet new people, explore your fantasies, or just enjoy a private conversation, our platform is built to make your experience seamless and exciting.
-                        </p>
-                        <h4 className="font-semibold text-foreground">Why Choose Us?</h4>
-                        <ul className="list-disc pl-5 space-y-1">
-                          <li><strong>Privacy First:</strong> Your security and anonymity are our top priority.</li>
-                          <li><strong>Safe Environment:</strong> We monitor for inappropriate behavior and provide tools to report abuse.</li>
-                          <li><strong>User-Friendly:</strong> Simple, fast, and intuitive interface designed for adults.</li>
-                          <li><strong>Interactive Experience:</strong> Enjoy real-time 1v1 video chats in a safe and engaging way.</li>
-                        </ul>
-                        <p>
-                          Join us today and discover a new way to connect in the adult world—private, exciting, and just for you.
-                        </p>
-                      </div>
+                      <ScrollArea className="h-96 w-full pr-6 text-left">
+                        <div className="space-y-4 text-sm text-muted-foreground">
+                          <p>
+                            Welcome to <strong>PleasureX</strong>, the premier platform for safe, private, and exciting 1v1 adult video chats. Our mission is to provide adults 18+ with a space where they can connect, explore, and enjoy intimate conversations in a secure environment.
+                          </p>
+                          <p>
+                            We understand that privacy and discretion are important. That’s why we’ve designed our platform to give you full control over your experience while keeping your personal information safe. Every chat is private, and every user is verified to ensure a respectful and enjoyable community.
+                          </p>
+                          <p>
+                            At <strong>PleasureX</strong>, we believe in creating connections that are fun, consensual, and completely adult-focused. Whether you’re here to meet new people, explore your fantasies, or just enjoy a private conversation, our platform is built to make your experience seamless and exciting.
+                          </p>
+                          <h4 className="font-semibold text-foreground">Why Choose Us?</h4>
+                          <ul className="list-disc pl-5 space-y-1">
+                            <li><strong>Privacy First:</strong> Your security and anonymity are our top priority.</li>
+                            <li><strong>Safe Environment:</strong> We monitor for inappropriate behavior and provide tools to report abuse.</li>
+                            <li><strong>User-Friendly:</strong> Simple, fast, and intuitive interface designed for adults.</li>
+                            <li><strong>Interactive Experience:</strong> Enjoy real-time 1v1 video chats in a safe and engaging way.</li>
+                          </ul>
+                          <p>
+                            Join us today and discover a new way to connect in the adult world—private, exciting, and just for you.
+                          </p>
+                        </div>
+                      </ScrollArea>
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
@@ -713,7 +715,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
-
-    
