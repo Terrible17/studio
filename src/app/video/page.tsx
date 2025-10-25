@@ -1,85 +1,31 @@
-
 "use client";
 
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Mic, MicOff, Video, PhoneOff, SkipForward, MessageSquare, Settings, RotateCw, Send, Flag, Languages, Map, ShieldCheck, Gem } from "lucide-react";
 import {
-  AlertDialog,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogFooter,
-} from "@/components/ui/alert-dialog";
+  ArrowLeft,
+  Mic,
+  MicOff,
+  VideoOff,
+  MessageSquare,
+  Settings,
+} from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { cn } from "@/lib/utils";
+import { CountrySelect } from "@/components/country-select";
+import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogHeader, AlertDialogTitle, AlertDialogFooter } from "@/components/ui/alert-dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import React, { useState, useEffect, useRef } from "react";
-import { cn } from "@/lib/utils";
-import { ChatSettings } from "@/components/chat-settings";
-import { useToast } from "@/hooks/use-toast";
-import { Badge } from "@/components/ui/badge";
 
 export default function VideoPage() {
   const router = useRouter();
-  const { toast } = useToast();
+  const [isMuted, setIsMuted] = useState(false);
+  const selfVideoRef = useRef<HTMLVideoElement>(null);
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
-  const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
-  const selfVideoRef = useRef<HTMLVideoElement>(null);
-  const remoteVideoRef = useRef<HTMLVideoElement>(null);
-
-
-  const [isSearching, setIsSearching] = useState(false);
-  const [isConnected, setIsConnected] = useState(false);
-  const [isMessaging, setIsMessaging] = useState(false);
-
-  const [isMuted, setIsMuted] = useState(false);
-  const [isPremium, setIsPremium] = useState(false); // Mock state for premium
-
   const allAccepted = termsAccepted && privacyAccepted;
-
-  useEffect(() => {
-    if (showVideo) {
-      const getCameraPermission = async () => {
-        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-          console.error("Camera API is not supported by this browser.");
-          setHasCameraPermission(false);
-          toast({
-            variant: "destructive",
-            title: "Unsupported Browser",
-            description: "Your browser does not support the necessary video features.",
-          });
-          return;
-        }
-        try {
-          const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-          setHasCameraPermission(true);
-
-          if (selfVideoRef.current) {
-            selfVideoRef.current.srcObject = stream;
-          }
-          // When connected, the remote video would be attached to remoteVideoRef.
-          // For now, we can mirror the self-view for demonstration.
-          if (remoteVideoRef.current) {
-             remoteVideoRef.current.srcObject = stream;
-          }
-        } catch (error) {
-          console.error("Error accessing camera:", error);
-          setHasCameraPermission(false);
-          toast({
-            variant: "destructive",
-            title: "Camera Access Denied",
-            description: "Please enable camera permissions in your browser settings.",
-          });
-        }
-      };
-
-      getCameraPermission();
-    }
-  }, [showVideo, toast]);
 
   const handleAgree = () => {
     if (allAccepted) {
@@ -87,155 +33,104 @@ export default function VideoPage() {
     }
   };
 
-  const startSearch = () => {
-    setIsSearching(true);
-    // Mock connection
-    setTimeout(() => {
-      setIsSearching(false);
-      setIsConnected(true);
-      toast({
-        description: (
-          <div className="flex items-center gap-2">
-            <span>♀️</span>
-            <span>South Africa</span>
-            <span>🇿🇦</span>
-          </div>
-        ),
-      });
-    }, 3000);
-  };
+  useEffect(() => {
+    if (showVideo) {
+      const getCameraPermission = async () => {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          console.error("Camera API is not supported by this browser.");
+          return;
+        }
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+          if (selfVideoRef.current) {
+            selfVideoRef.current.srcObject = stream;
+          }
+        } catch (error) {
+          console.error("Error accessing camera:", error);
+        }
+      };
 
-  const endCall = () => {
-    setIsConnected(false);
-    setIsSearching(false);
-    setIsMessaging(false);
-  };
-
-  const skipCall = () => {
-    setIsConnected(false);
-    startSearch();
-  };
-
-  const renderFooter = () => {
-    if (!isSearching && !isConnected) {
-      return (
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20">
-          <Button
-            size="icon"
-            className="h-20 w-20 rounded-full bg-green-500 hover:bg-green-600"
-            onClick={startSearch}
-          >
-            <Video className="h-8 w-8" />
-          </Button>
-        </div>
-      );
+      getCameraPermission();
     }
-
-    return (
-      <div className="absolute bottom-0 left-0 right-0 p-4 bg-black/30 z-20">
-        {isMessaging ? (
-          <div className="flex items-center gap-2">
-            <div className="flex-1 relative">
-                <input type="text" placeholder="Type a message..." className="w-full bg-gray-700/50 rounded-full py-2 px-4 text-white placeholder:text-gray-400" />
-                <Button size="icon" variant="ghost" className="absolute right-12 top-1/2 -translate-y-1/2">
-                 😍
-                </Button>
-            </div>
-            <Button size="icon" className="rounded-full bg-primary"><Send className="h-5 w-5" /></Button>
-          </div>
-        ) : (
-          <div className="flex justify-around items-center">
-            <Button variant="ghost" size="icon" className="h-14 w-14 rounded-full bg-white/20" onClick={() => setIsMuted(!isMuted)}>
-              {isMuted ? <MicOff /> : <Mic />}
-            </Button>
-            <Button variant="ghost" size="icon" className="h-14 w-14 rounded-full bg-white/20">
-              <RotateCw />
-            </Button>
-            <Button variant="destructive" size="icon" className="h-16 w-16 rounded-full" onClick={endCall}>
-              <PhoneOff />
-            </Button>
-            <Button variant="ghost" size="icon" className="h-14 w-14 rounded-full bg-white/20" onClick={skipCall}>
-              <SkipForward />
-            </Button>
-            <Button variant="ghost" size="icon" className="h-14 w-14 rounded-full bg-white/20" onClick={() => setIsMessaging(true)}>
-              <MessageSquare />
-            </Button>
-            <ChatSettings isPremium={isPremium} />
-          </div>
-        )}
-      </div>
-    );
-  };
-
+  }, [showVideo]);
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center bg-gray-900 text-white relative overflow-hidden">
+    <div className="flex h-screen flex-col items-center justify-center bg-black text-white relative overflow-hidden">
       {showVideo ? (
         <>
-          <div className="absolute top-4 left-4 z-20">
-            <Button variant="ghost" size="icon" onClick={() => router.back()}>
+          {/* Header */}
+          <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-20 bg-transparent">
+            <div>
+              <CountrySelect />
+            </div>
+            <Button variant="ghost" size="icon" onClick={() => setShowVideo(false)}>
               <ArrowLeft className="h-6 w-6" />
             </Button>
           </div>
-          
-           <div className="absolute inset-0 w-full h-full">
-            {hasCameraPermission === false && (
-                <div className="absolute inset-0 flex items-center justify-center bg-black">
-                    <p className="text-destructive">Camera access denied. Please enable it in your browser settings.</p>
-                </div>
-            )}
-            
-            {/* Remote video feed (hidden when not connected) */}
-            <video
-              ref={remoteVideoRef}
-              className={cn(
-                "w-full h-full object-cover",
-                !isConnected && "hidden"
-              )}
-              autoPlay
-              playsInline
-            />
 
-             {/* Self-preview, full screen when not connected */}
-            <video
-              ref={selfVideoRef}
-              className={cn(
-                "w-full h-full object-cover",
-                isConnected && "hidden" 
-              )}
-              autoPlay
-              muted
-              playsInline
-            />
-
-            {hasCameraPermission && !isConnected && (
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 z-10">
-                    <h1 className="text-6xl font-cursive text-white/90">Pleasure X</h1>
-                     {isSearching && (
-                        <div className="mt-4 text-lg text-white/80">Searching...</div>
-                    )}
-                </div>
-            )}
-
-            {isConnected && (
-                 <video
-                    className="absolute top-4 right-4 h-40 w-32 object-cover rounded-md border-2 border-primary z-10"
-                    autoPlay
-                    muted
-                    playsInline
-                    ref={selfVideoRef}
-                />
-            )}
+          {/* Main Body */}
+          <div className="flex-1 flex flex-col items-center justify-center text-center w-full h-full">
+            <div className="relative w-full h-full">
+              <video
+                ref={selfVideoRef}
+                className="w-full h-full object-cover"
+                autoPlay
+                muted
+                playsInline
+              />
+              <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                <h1 className="text-8xl font-cursive" style={{
+                  background: 'linear-gradient(to right, #A7E6FF, #FFAFCC)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  animation: 'fill-animation 4s ease-in-out forwards',
+                }}>
+                  PleasureX
+                </h1>
+              </div>
+            </div>
           </div>
-         
-          {renderFooter()}
 
+           {/* Footer Controls */}
+           <div className="absolute bottom-0 left-0 right-0 p-4 bg-transparent z-20">
+              <div className="flex justify-evenly items-center bg-black/30 backdrop-blur-sm rounded-full max-w-md mx-auto p-2">
+                <Button variant="ghost" size="icon" className="h-14 w-14 rounded-full text-white" onClick={() => setIsMuted(!isMuted)}>
+                  {isMuted ? <MicOff /> : <Mic />}
+                </Button>
+                <Button variant="ghost" size="icon" className="h-14 w-14 rounded-full text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-camera-reverse"><path d="M13 16.5V14l4 2.5v-9l-4 2.5V8"/><path d="M18 8h-6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-2"/><path d="m2 2 20 20"/><path d="M9.5 10.5c.3-.3.6-.5.9-.7"/><path d="M6.5 6.5C8 5.6 10 5 12 5c2.5 0 4.5 1 6 2.5"/></svg>
+                </Button>
+                <Button variant="destructive" size="icon" className="h-16 w-16 rounded-full">
+                  <VideoOff />
+                </Button>
+                <Button variant="ghost" size="icon" className="h-14 w-14 rounded-full text-white">
+                  <MessageSquare />
+                </Button>
+                <Button variant="ghost" size="icon" className="h-14 w-14 rounded-full text-white">
+                  <Settings />
+                </Button>
+              </div>
+            </div>
+
+            <style jsx global>{`
+              @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+              .font-cursive {
+                font-family: 'Dancing Script', cursive;
+              }
+              @keyframes fill-animation {
+                from {
+                  background-size: 200% 100%;
+                  background-position: 100% 0;
+                }
+                to {
+                  background-size: 200% 100%;
+                  background-position: 0 0;
+                }
+              }
+            `}</style>
         </>
       ) : (
-        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
-      )}
-
-      <AlertDialog open={!showVideo}>
+        <AlertDialog open={!showVideo} onOpenChange={() => router.back()}>
         <AlertDialogContent className="max-w-md bg-card text-card-foreground">
           <AlertDialogHeader className="bg-muted p-4 rounded-t-lg">
             <AlertDialogTitle className="text-center text-lg font-bold text-foreground">
@@ -343,8 +238,7 @@ export default function VideoPage() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+      )}
     </div>
   );
 }
-
-    
