@@ -14,28 +14,13 @@ import {
 
 export function PremiumModal({
   children,
-  isPremium,
 }: {
   children: React.ReactNode;
-  isPremium: boolean;
 }) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
       <AlertDialogContent>
-        {isPremium ? (
-          <>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Premium Activated</AlertDialogTitle>
-              <AlertDialogDescription>
-                You already have an active premium subscription.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogAction>Close</AlertDialogAction>
-            </AlertDialogFooter>
-          </>
-        ) : (
           <>
             <AlertDialogHeader>
               <AlertDialogTitle>Premium Features</AlertDialogTitle>
@@ -76,7 +61,6 @@ export function PremiumModal({
               <AlertDialogAction>Activate Premium</AlertDialogAction>
             </AlertDialogFooter>
           </>
-        )}
       </AlertDialogContent>
     </AlertDialog>
   );
