@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { Check, ChevronsUpDown, Globe } from "lucide-react"
-
+import { countries } from "@/lib/countries"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -19,23 +19,13 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-const countries = [
-    { value: "worldwide", label: "Worldwide", flag: "🌍" },
-    { value: "united-states", label: "United States", flag: "🇺🇸" },
-    { value: "india", label: "India", flag: "🇮🇳" },
-    { value: "brazil", label: "Brazil", flag: "🇧🇷" },
-    { value: "indonesia", label: "Indonesia", flag: "🇮🇩" },
-    { value: "pakistan", label: "Pakistan", flag: "🇵🇰" },
-    { value: "nigeria", label: "Nigeria", flag: "🇳🇬" },
-    { value: "bangladesh", label: "Bangladesh", flag: "🇧🇩" },
-    { value: "russia", label: "Russia", flag: "🇷🇺" },
-    { value: "mexico", label: "Mexico", flag: "🇲🇽" },
-    { value: "japan", label: "Japan", flag: "🇯🇵" },
-]
+interface CountrySelectProps {
+    value: string;
+    onValueChange: (value: string) => void;
+}
 
-export function CountrySelect() {
+export function CountrySelect({ value, onValueChange }: CountrySelectProps) {
   const [open, setOpen] = React.useState(false)
-  const [value, setValue] = React.useState("worldwide")
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -62,7 +52,7 @@ export function CountrySelect() {
                   key={country.value}
                   value={country.value}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue)
+                    onValueChange(currentValue === value ? "" : currentValue)
                     setOpen(false)
                   }}
                 >

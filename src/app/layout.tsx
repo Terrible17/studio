@@ -1,4 +1,5 @@
 
+import { app } from '@/lib/firebase';
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";

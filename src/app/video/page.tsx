@@ -1,7 +1,9 @@
+
 "use client";
 
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   ArrowLeft,
   Mic,
@@ -9,6 +11,16 @@ import {
   VideoOff,
   MessageSquare,
   Settings,
+  Globe,
+  Camera,
+  Video,
+  PhoneForwarded,
+  PhoneOff,
+  Send,
+  SmilePlus,
+  Heart,
+  Droplets,
+  X
 } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
@@ -17,18 +29,42 @@ import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogHea
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { countries } from "@/lib/countries";
+import { ChatSettings } from "@/components/chat-settings";
 
 export default function VideoPage() {
   const router = useRouter();
   const [isMuted, setIsMuted] = useState(false);
   const selfVideoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState("worldwide");
+  const [stream, setStream] = useState<MediaStream | null>(null);
+  const [facingMode, setFacingMode] = useState("user");
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchTrigger, setSearchTrigger] = useState(0);
+  const [showChat, setShowChat] = useState(false);
+  const [showEmojis, setShowEmojis] = useState(false);
+  const [emojiBlast, setEmojiBlast] = useState<{ id: number; emoji: string; style: React.CSSProperties }[]>([]);
+  const [message, setMessage] = useState("");
+  const [chatHistory, setChatHistory] = useState<{ sender: string, text: string }[]>([]);
+  const [isPremium, setIsPremium] = useState(true);
   const allAccepted = termsAccepted && privacyAccepted;
 
   const handleAgree = () => {
     if (allAccepted) {
+      const elem = document.documentElement;
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen().catch(err => {
+            console.error(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+        });
+      } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+      }
       setShowVideo(true);
     }
   };
@@ -41,9 +77,13 @@ export default function VideoPage() {
           return;
         }
         try {
-          const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+          if (stream) {
+            stream.getTracks().forEach(track => track.stop());
+          }
+          const newStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: { facingMode: facingMode } });
+          setStream(newStream);
           if (selfVideoRef.current) {
-            selfVideoRef.current.srcObject = stream;
+            selfVideoRef.current.srcObject = newStream;
           }
         } catch (error) {
           console.error("Error accessing camera:", error);
@@ -51,64 +91,223 @@ export default function VideoPage() {
       };
 
       getCameraPermission();
+
+      return () => {
+        if (stream) {
+            stream.getTracks().forEach(track => track.stop());
+        }
+        if (document.fullscreenElement) {
+            document.exitFullscreen();
+        }
+      }
     }
-  }, [showVideo]);
+  }, [showVideo, facingMode]);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (isSearching) {
+      timer = setTimeout(() => {
+        setIsSearching(false);
+      }, 5000); 
+    }
+    return () => clearTimeout(timer);
+}, [isSearching, searchTrigger]);
+
+
+  const toggleMute = () => {
+      if (stream) {
+          stream.getAudioTracks().forEach(track => {
+              track.enabled = !track.enabled;
+          });
+          setIsMuted(!isMuted);
+      }
+  }
+
+  const flipCamera = () => {
+    setFacingMode(prev => {
+        const newMode = prev === "user" ? "environment" : "user";
+        // Re-request the camera with the new facing mode
+        if (stream) {
+            stream.getTracks().forEach(track => track.stop());
+        }
+        return newMode;
+    });
+  }
+  
+  const handleSearch = () => {
+    setShowChat(false);
+    setShowEmojis(false);
+    setIsSearching(prev => !prev);
+  };
+
+  const handleSkip = () => {
+      setShowChat(false);
+      setShowEmojis(false);
+      setSearchTrigger(prev => prev + 1);
+  }
+
+  const handleSendMessage = () => {
+    if (message.trim()) {
+      setChatHistory([...chatHistory, { sender: 'user', text: message }]);
+      setMessage("");
+      // Simulate receiving a message
+      setTimeout(() => {
+        setChatHistory(prev => [...prev, { sender: 'other', text: 'Hi' }]);
+      }, 1000);
+    }
+  };
+
+  const handleEmojiSelect = (emoji: string) => {
+    const newParticles = Array.from({ length: 40 }).map((_, i) => ({
+        id: Math.random(),
+        emoji: emoji,
+        style: {
+            position: 'absolute',
+            left: '50%',
+            top: '50%',
+            fontSize: `${Math.random() * 24 + 8}px`,
+            animation: `blast 2s ease-out forwards`,
+            animationDelay: `${Math.random() * 0.2}s`,
+            '--tx': `${(Math.random() - 0.5) * (window.innerWidth * 1.5)}px`,
+            '--ty': `${(Math.random() - 0.5) * (window.innerHeight * 1.5)}px`,
+        } as React.CSSProperties
+    }));
+
+    setEmojiBlast(newParticles);
+    setShowEmojis(false);
+
+    setTimeout(() => {
+        setEmojiBlast([]);
+    }, 2200);
+  }
+
+  const selectedCountryLabel = countries.find(c => c.value === selectedCountry)?.label;
+
+  const renderToolbar = () => {
+    if (isSearching) {
+        if (showChat) {
+            return (
+                <div className="flex w-full max-w-lg mx-auto items-center">
+                    <Button size="icon" className="mr-2" onClick={() => {setShowChat(false); setShowEmojis(false);}}><X /></Button>
+                    {showEmojis ? (
+                         <div className="flex justify-evenly items-center bg-transparent rounded-full w-full p-2">
+                            <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full text-white" onClick={() => handleEmojiSelect('😍')}>😍</Button>
+                            <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full text-white" onClick={() => handleEmojiSelect('❤️')}>❤️</Button>
+                            <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full text-white" onClick={() => handleEmojiSelect('💦')}>💦</Button>
+                            <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full text-white" onClick={() => setShowEmojis(false)}><X /></Button>
+                        </div>
+                    ) : (
+                        <>
+                            <Input 
+                                type="text" 
+                                placeholder="Type a message..." 
+                                className="bg-transparent border-none text-white flex-1"
+                                value={message}
+                                onChange={(e) => setMessage(e.target.value)}
+                                onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                            />
+                             <Button variant="ghost" size="icon" className="mx-2" onClick={() => setShowEmojis(true)}><SmilePlus /></Button>
+                            <Button size="icon" onClick={handleSendMessage}><Send /></Button>
+                        </>
+                    )}
+                </div>
+            )
+        }
+        return (
+          <div className="flex justify-evenly items-center bg-black/30 backdrop-blur-sm rounded-full w-full max-w-lg mx-auto p-2">
+            <Button variant="ghost" size="icon" className="h-14 w-14 rounded-full text-white" onClick={toggleMute}>
+              {isMuted ? <MicOff /> : <Mic />}
+            </Button>
+            <Button variant="ghost" size="icon" className="h-14 w-14 rounded-full text-white" onClick={flipCamera}>
+               <Camera />
+            </Button>
+            <Button variant="destructive" size="icon" className="h-16 w-16 rounded-full" onClick={() => setIsSearching(false)}>
+              <PhoneOff />
+            </Button>
+            <Button variant="default" size="icon" className="h-16 w-16 rounded-full bg-gray-500 hover:bg-gray-600" onClick={handleSkip}>
+               <PhoneForwarded />
+            </Button>
+            <Button variant="ghost" size="icon" className="h-14 w-14 rounded-full text-white" onClick={() => {setShowChat(true); setShowEmojis(false);}}>
+                <MessageSquare />
+            </Button>
+            <ChatSettings isPremium={isPremium} />
+          </div>
+        );
+    }
+    return (
+        <Button
+          variant="default"
+          size="icon"
+          className="h-16 w-16 rounded-full bg-green-500 hover:bg-green-600 animate-pulse-video"
+          onClick={handleSearch}
+        >
+          <Video className="h-6 w-6" />
+        </Button>
+    )
+  }
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center bg-black text-white relative overflow-hidden">
+    <div ref={containerRef} className="flex h-screen flex-col items-center justify-center bg-black text-white relative overflow-hidden">
       {showVideo ? (
         <>
-          {/* Header */}
           <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-20 bg-transparent">
             <div>
-              <CountrySelect />
+              <CountrySelect value={selectedCountry} onValueChange={setSelectedCountry} />
             </div>
-            <Button variant="ghost" size="icon" onClick={() => setShowVideo(false)}>
+            <Button variant="ghost" size="icon" onClick={() => {
+                setShowVideo(false);
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                }
+                router.back();
+            }}>
               <ArrowLeft className="h-6 w-6" />
             </Button>
           </div>
 
-          {/* Main Body */}
-          <div className="flex-1 flex flex-col items-center justify-center text-center w-full h-full">
-            <div className="relative w-full h-full">
-              <video
-                ref={selfVideoRef}
-                className="w-full h-full object-cover"
-                autoPlay
-                muted
-                playsInline
-              />
-              <div className="absolute inset-0 flex items-center justify-center bg-black/30">
-                <h1 className="text-8xl font-cursive" style={{
-                  background: 'linear-gradient(to right, #A7E6FF, #FFAFCC)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  animation: 'fill-animation 4s ease-in-out forwards',
-                }}>
-                  PleasureX
-                </h1>
-              </div>
-            </div>
+          <div className="flex-1 w-full h-full relative">
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-black">
+                    <Globe className={`w-24 h-24 text-white/50 ${isSearching ? 'animate-spin' : ''}`} />
+                    {selectedCountryLabel && <p className="text-white/50 text-lg mt-2">{selectedCountryLabel}</p>}
+                </div>
+
+                <video
+                    ref={selfVideoRef}
+                    className="absolute top-20 right-4 w-24 h-32 md:w-48 md:h-64 object-cover rounded-lg z-10 border-2 border-white/20 shadow-lg"
+                    autoPlay
+                    muted
+                    playsInline
+                />
           </div>
 
-           {/* Footer Controls */}
+            {emojiBlast.length > 0 && (
+                <div className="absolute inset-0 w-full h-full z-30 pointer-events-none overflow-hidden">
+                    {emojiBlast.map(particle => (
+                        <span key={particle.id} style={particle.style}>
+                            {particle.emoji}
+                        </span>
+                    ))}
+                </div>
+            )}
+
+          {showChat && (
+            <div className="absolute bottom-24 left-4 right-4 max-h-60 overflow-y-auto z-20 flex flex-col-reverse">
+              {chatHistory.map((chat, index) => (
+                <div key={index} className={`flex ${chat.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
+                  <div className={cn(
+                    "p-2 rounded-lg my-1 text-sm bg-black/30 backdrop-blur-sm",
+                    chat.sender === 'user' ? 'text-white' : 'text-white'
+                  )}>
+                    {chat.text}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
            <div className="absolute bottom-0 left-0 right-0 p-4 bg-transparent z-20">
-              <div className="flex justify-evenly items-center bg-black/30 backdrop-blur-sm rounded-full max-w-md mx-auto p-2">
-                <Button variant="ghost" size="icon" className="h-14 w-14 rounded-full text-white" onClick={() => setIsMuted(!isMuted)}>
-                  {isMuted ? <MicOff /> : <Mic />}
-                </Button>
-                <Button variant="ghost" size="icon" className="h-14 w-14 rounded-full text-white">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-camera-reverse"><path d="M13 16.5V14l4 2.5v-9l-4 2.5V8"/><path d="M18 8h-6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-2"/><path d="m2 2 20 20"/><path d="M9.5 10.5c.3-.3.6-.5.9-.7"/><path d="M6.5 6.5C8 5.6 10 5 12 5c2.5 0 4.5 1 6 2.5"/></svg>
-                </Button>
-                <Button variant="destructive" size="icon" className="h-16 w-16 rounded-full">
-                  <VideoOff />
-                </Button>
-                <Button variant="ghost" size="icon" className="h-14 w-14 rounded-full text-white">
-                  <MessageSquare />
-                </Button>
-                <Button variant="ghost" size="icon" className="h-14 w-14 rounded-full text-white">
-                  <Settings />
-                </Button>
+              <div className="flex justify-center items-center">
+                {renderToolbar()}
               </div>
             </div>
 
@@ -117,14 +316,25 @@ export default function VideoPage() {
               .font-cursive {
                 font-family: 'Dancing Script', cursive;
               }
-              @keyframes fill-animation {
+              @keyframes pulse-video {
+                0%, 100% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.1);
+                }
+              }
+              .animate-pulse-video {
+                  animation: pulse-video 1.5s ease-in-out infinite;
+              }
+              @keyframes blast {
                 from {
-                  background-size: 200% 100%;
-                  background-position: 100% 0;
+                  transform: translate(-50%, -50%) scale(1);
+                  opacity: 1;
                 }
                 to {
-                  background-size: 200% 100%;
-                  background-position: 0 0;
+                  transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0.5);
+                  opacity: 0;
                 }
               }
             `}</style>

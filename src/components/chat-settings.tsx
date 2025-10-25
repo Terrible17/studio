@@ -1,7 +1,6 @@
-
 "use client";
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -9,30 +8,35 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-  SheetFooter,
-  SheetClose,
 } from "@/components/ui/sheet";
-import { Settings, Languages, Map, ShieldCheck, Gem, X } from "lucide-react";
+import { Settings, Gem } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Separator } from "@/components/ui/separator";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
-import { PremiumIcon } from './icons/premium-icon';
-
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { PremiumModal } from "./premium-modal";
 
 interface ChatSettingsProps {
     isPremium: boolean;
 }
 
+const languages = [
+    "English", "Spanish", "French", "German", "Mandarin", "Hindi", "Arabic", "Portuguese", "Bengali", "Russian", "Japanese", "Lahnda", "Javanese", "Wu", "Telugu", "Marathi", "Vietnamese", "Korean", "Tamil", "Urdu"
+];
+
 export function ChatSettings({ isPremium }: ChatSettingsProps) {
-    const [isLocationHidden, setIsLocationHidden] = useState(false);
-    const [isAutoTranslate, setIsAutoTranslate] = useState(false);
 
   return (
     <Sheet>
@@ -43,85 +47,87 @@ export function ChatSettings({ isPremium }: ChatSettingsProps) {
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Chat Settings</SheetTitle>
-           <div className="absolute right-4 top-4">
-               <div className={isPremium ? 'text-green-500' : 'text-red-500'}>
-                    <PremiumIcon className="h-6 w-6" />
-               </div>
-            </div>
+          <SheetTitle className="flex items-center">
+            Chat Settings 
+            <span className={`ml-2 h-3 w-3 rounded-full ${isPremium ? 'bg-green-500' : 'bg-red-500'}`}></span>
+          </SheetTitle>
         </SheetHeader>
-        <div className="py-4 space-y-6">
-            <div className="space-y-4">
-                <Button variant="outline" className="w-full justify-start gap-2">
-                    <ShieldCheck className="h-4 w-4" />
-                    Report
-                </Button>
-                 <Select defaultValue="en">
-                    <SelectTrigger className="w-full">
-                         <div className="flex items-center gap-2">
-                            <Languages className="h-4 w-4" />
-                            <SelectValue placeholder="Language" />
-                        </div>
+        <div className="py-4 space-y-4">
+            <div className="space-y-2">
+                <Label htmlFor="intro-message">Intro Message</Label>
+                <Textarea id="intro-message" placeholder="Type your intro message here." />
+            </div>
+
+            <div className="flex items-center justify-between">
+                <Label htmlFor="auto-translate">Auto Translate</Label>
+                <Switch id="auto-translate" />
+            </div>
+
+            <div className="flex items-center justify-between">
+                <Label htmlFor="hide-location">Hide Location</Label>
+                <Switch id="hide-location" disabled={!isPremium} />
+            </div>
+            
+            <div>
+                <Label htmlFor="language">Language</Label>
+                <Select defaultValue="English">
+                    <SelectTrigger>
+                        <SelectValue placeholder="Select a language" />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="en">English</SelectItem>
-                        <SelectItem value="es">Spanish</SelectItem>
-                        <SelectItem value="fr">French</SelectItem>
-                        <SelectItem value="de">German</SelectItem>
-                        <SelectItem value="zh">Chinese</SelectItem>
+                        {languages.map(lang => <SelectItem key={lang} value={lang}>{lang}</SelectItem>)}
                     </SelectContent>
                 </Select>
-
             </div>
 
-          <div className="space-y-4">
-             <h3 className="text-sm font-medium text-muted-foreground">Premium Features</h3>
-             <div className="flex items-center justify-between rounded-lg border p-3">
-                <div className="space-y-0.5">
-                    <Label htmlFor="hide-location" className="flex items-center gap-2">
-                        <Map className="h-4 w-4"/>
-                        Hide Location
-                    </Label>
-                    <p className="text-xs text-muted-foreground">Prevent others from seeing your country.</p>
-                </div>
-                <Switch
-                    id="hide-location"
-                    checked={isLocationHidden}
-                    onCheckedChange={setIsLocationHidden}
-                    disabled={!isPremium}
-                />
+            <Separator />
+
+            <div>
+                <p className="text-sm text-muted-foreground pb-2">Account Settings</p>
+                <PremiumModal isPremium={isPremium}>
+                    <Button className="w-full" variant="premium">
+                        <Gem className="mr-2 h-4 w-4" />
+                        Activate Premium
+                    </Button>
+                </PremiumModal>
+                <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                        <Button variant="outline" className="w-full mt-2">Report a User</Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>Report a User</AlertDialogTitle>
+                            <AlertDialogDescription>
+                                To report a user, please send an email to <a href="mailto:report@example.com" className="text-blue-500">report@example.com</a> with the user\'s ID and a description of the issue.
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction>Close</AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
+                <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                        <Button variant="destructive" className="w-full mt-2">Delete Account</Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                                This action cannot be undone. This will permanently delete your
+                                account and remove your data from our servers.
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction>Delete</AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
             </div>
-             <div className="flex items-center justify-between rounded-lg border p-3">
-                <div className="space-y-0.5">
-                    <Label htmlFor="auto-translate" className="flex items-center gap-2">
-                        <Languages className="h-4 w-4"/>
-                        Auto Translate
-                    </Label>
-                     <p className="text-xs text-muted-foreground">Automatically translate incoming messages to English.</p>
-                </div>
-                <Switch
-                    id="auto-translate"
-                    checked={isAutoTranslate}
-                    onCheckedChange={setIsAutoTranslate}
-                    disabled={!isPremium}
-                />
-            </div>
-          </div>
         </div>
-        <SheetFooter>
-            {!isPremium && <Button className="w-full" variant="premium"><Gem className="mr-2 h-4 w-4"/>Upgrade to Premium</Button>}
-        </SheetFooter>
       </SheetContent>
     </Sheet>
   );
 }
-
-declare module "tailwind-variants" {
-    interface ButtonVariantConfig {
-        variant: {
-            premium: string;
-        };
-    }
-}
-
-    
