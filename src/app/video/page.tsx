@@ -25,6 +25,7 @@ import {
 import React, { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { CountrySelect } from "@/components/country-select";
+import { GenderSelect } from "@/components/gender-select";
 import { AlertDialog, AlertDialogContent, AlertDialogDescription, AlertDialogHeader, AlertDialogTitle, AlertDialogFooter } from "@/components/ui/alert-dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -41,9 +42,11 @@ export default function VideoPage() {
   const [privacyAccepted, setPrivacyAccepted] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState("worldwide");
+  const [selectedGender, setSelectedGender] = useState("everyone");
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [facingMode, setFacingMode] = useState("user");
   const [isSearching, setIsSearching] = useState(false);
+  const [isConnected, setIsConnected] = useState(false);
   const [searchTrigger, setSearchTrigger] = useState(0);
   const [showChat, setShowChat] = useState(false);
   const [showEmojis, setShowEmojis] = useState(false);
@@ -107,8 +110,10 @@ export default function VideoPage() {
     let timer: NodeJS.Timeout;
     if (isSearching) {
       timer = setTimeout(() => {
-        setIsSearching(false);
-      }, 5000); 
+        setIsConnected(true);
+      }, 5000);
+    } else {
+        setIsConnected(false);
     }
     return () => clearTimeout(timer);
 }, [isSearching, searchTrigger]);
@@ -143,7 +148,7 @@ export default function VideoPage() {
   const handleSkip = () => {
       setShowChat(false);
       setShowEmojis(false);
-      setSearchTrigger(prev => prev + 1);
+      setIsSearching(true);
   }
 
   const handleSendMessage = () => {
@@ -181,7 +186,11 @@ export default function VideoPage() {
     }, 2200);
   }
 
-  const selectedCountryLabel = countries.find(c => c.value === selectedCountry)?.label;
+  const selectedCountryData = countries.find(c => c.value === selectedCountry);
+  const selectedCountryLabel = selectedCountryData?.label;
+  const selectedCountryFlag = selectedCountryData?.flag;
+  const genderSymbol = selectedGender === 'male' ? '♂️' : selectedGender === 'female' ? '♀️' : '';
+
 
   const renderToolbar = () => {
     if (isSearching) {
@@ -221,7 +230,7 @@ export default function VideoPage() {
             <Button variant="ghost" size="icon" className="h-14 w-14 rounded-full text-white" onClick={flipCamera}>
                <Camera />
             </Button>
-            <Button variant="destructive" size="icon" className="h-16 w-16 rounded-full" onClick={() => setIsSearching(false)}>
+            <Button variant="destructive" size="icon" className="h-16 w-16 rounded-full" onClick={() => {setIsSearching(false); setIsConnected(false)}}>
               <PhoneOff />
             </Button>
             <Button variant="default" size="icon" className="h-16 w-16 rounded-full bg-gray-500 hover:bg-gray-600" onClick={handleSkip}>
@@ -251,8 +260,9 @@ export default function VideoPage() {
       {showVideo ? (
         <>
           <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-20 bg-transparent">
-            <div>
+            <div className="flex items-center">
               <CountrySelect value={selectedCountry} onValueChange={setSelectedCountry} />
+              <GenderSelect value={selectedGender} onValueChange={setSelectedGender} />
             </div>
             <Button variant="ghost" size="icon" onClick={() => {
                 setShowVideo(false);
@@ -266,9 +276,31 @@ export default function VideoPage() {
           </div>
 
           <div className="flex-1 w-full h-full relative">
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-black">
-                    <Globe className={`w-24 h-24 text-white/50 ${isSearching ? 'animate-spin' : ''}`} />
-                    {selectedCountryLabel && <p className="text-white/50 text-lg mt-2">{selectedCountryLabel}</p>}
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-black text-center">
+                    <div className="text-6xl font-extrabold relative">
+                        <span className="text-white/20">PLEASURE X</span>
+                        <span
+                            className="absolute left-0 top-0 h-full bg-gradient-to-r from-blue-500 to-pink-500 bg-clip-text text-transparent overflow-hidden"
+                            style={{ width: isSearching ? '100%' : '0%', transition: 'width 5s ease-in-out' }}
+                        >
+                            PLEASURE X
+                        </span>
+                    </div>
+                    {isSearching ? (
+                        isConnected ? (
+                            <p className="text-white/50 text-xl mt-4">
+                                Connected {genderSymbol}{selectedGender} {selectedCountryFlag}
+                            </p>
+                        ) : (
+                            <p className="text-white/50 text-xl mt-4">
+                                Searching {selectedCountryLabel}...
+                            </p>
+                        )
+                    ) : (
+                        <p className="text-white/50 text-xl mt-4">
+                            Click the video button to start
+                        </p>
+                    )}
                 </div>
 
                 <video
@@ -291,13 +323,10 @@ export default function VideoPage() {
             )}
 
           {showChat && (
-            <div className="absolute bottom-24 left-4 right-4 max-h-60 overflow-y-auto z-20 flex flex-col-reverse">
+            <div className="absolute bottom-24 left-4 right-4 max-h-60 overflow-y-auto z-20 flex flex-col">
               {chatHistory.map((chat, index) => (
-                <div key={index} className={`flex ${chat.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={cn(
-                    "p-2 rounded-lg my-1 text-sm bg-black/30 backdrop-blur-sm",
-                    chat.sender === 'user' ? 'text-white' : 'text-white'
-                  )}>
+                <div key={index} className={`flex ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
+                  <div className={"p-2 rounded-lg my-1 text-sm bg-black/30 backdrop-blur-sm text-white max-w-xs"}>
                     {chat.text}
                   </div>
                 </div>
@@ -356,6 +385,7 @@ export default function VideoPage() {
                   which it is being accessed. The materials that are available
                   within this Website may include graphic visual depictions and
                   descriptions of nudity and sexual activity and must not be
+
                   accessed by anyone who is younger than 18-years old and the
                   age of majority in their jurisdiction. Visiting this Website
                   if you are under 18-years old and the age of majority may be
