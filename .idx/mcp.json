@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "terrible26": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "terrible26/myserver"
+      ]
+    }
+  }
+}
