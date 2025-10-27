@@ -1,6 +1,7 @@
 
 import { app } from '@/lib/firebase';
 import type { Metadata } from "next";
+import Script from "next/script";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
@@ -33,9 +34,8 @@ export default function RootLayout({
           {children}
           <Toaster />
         </ThemeProvider>
+        <Script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD" strategy="beforeInteractive" />
       </body>
     </html>
   );
 }
-
-    

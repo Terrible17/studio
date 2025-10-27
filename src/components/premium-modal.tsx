@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   AlertDialog,
@@ -11,12 +11,43 @@ import {
   AlertDialogTrigger,
   AlertDialogCancel,
 } from "@/components/ui/alert-dialog";
+import { useEffect } from "react";
+
+declare global {
+  interface Window {
+    paypal: any;
+  }
+}
 
 export function PremiumModal({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  useEffect(() => {
+    if (window.paypal) {
+      window.paypal.Buttons({
+        style: {
+          layout: 'vertical'
+        },
+        createOrder: function(data: any, actions: any) {
+          return actions.order.create({
+            purchase_units: [{
+              amount: {
+                value: '8.00'
+              }
+            }]
+          });
+        },
+        onApprove: function(data: any, actions: any) {
+          return actions.order.capture().then(function(details: any) {
+            alert('Transaction completed by ' + details.payer.name.given_name);
+          });
+        }
+      }).render('#paypal-button-container');
+    }
+  }, []);
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
@@ -43,6 +74,7 @@ export function PremiumModal({
                       Payment will be handled by PayPal.
                     </p>
                   </div>
+                  <div id="paypal-button-container"></div>
                   <div className="border-t border-border pt-4">
                     <p className="font-semibold text-foreground">
                       Watch Ads for Limited Access
@@ -58,7 +90,6 @@ export function PremiumModal({
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction>Activate Premium</AlertDialogAction>
             </AlertDialogFooter>
           </>
       </AlertDialogContent>
